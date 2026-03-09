@@ -2,9 +2,6 @@ node_modules/
 temporary screenshots/
 brand_assets/
 CLAUDE.md
-serve.mjs
 screenshot.mjs
-package.json
-package-lock.json
 Website must have/
 .DS_Store
