@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vessellax — AI Automation for Service Businesses</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #2c3e50;
+      --navy-dark: #1a252f;
+      --navy-light: #3d5166;
+      --red: #e63329;
+      --red-dark: #c0271e;
+      --red-light: #ff4a40;
+      --white: #ffffff;
+      --off-white: #f8f8f8;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-400: #9ca3af;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --text-main: #1a1a2e;
+      --text-muted: #6b7280;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 32px;
+      --shadow-card: 0 2px 8px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 24px rgba(0,0,0,0.1), 0 24px 64px rgba(0,0,0,0.12);
+      --max-w: 1120px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-main);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── UTILS ── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600; font-size: 15px; cursor: pointer;
+      text-decoration: none; border: none; outline: none;
+      transition: transform 0.18s cubic-bezier(.22,1,.36,1),
+                  box-shadow 0.18s cubic-bezier(.22,1,.36,1),
+                  background 0.18s ease;
+    }
+    .btn:active { transform: scale(0.97) !important; }
+
+    .btn-primary {
+      background: var(--red); color: var(--white);
+      padding: 13px 26px; border-radius: 100px;
+      box-shadow: 0 2px 8px rgba(230,51,41,0.25), 0 4px 20px rgba(230,51,41,0.15);
+    }
+    .btn-primary:hover {
+      background: var(--red-dark); transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(230,51,41,0.35), 0 8px 32px rgba(230,51,41,0.2);
+    }
+    .btn-outline {
+      background: transparent; color: var(--navy);
+      padding: 12px 24px; border-radius: 100px;
+      border: 1.5px solid var(--gray-200);
+    }
+    .btn-outline:hover {
+      border-color: var(--navy); transform: translateY(-1px);
+      box-shadow: 0 2px 12px rgba(44,62,80,0.1);
+    }
+    .btn-outline-white {
+      background: transparent; color: var(--white);
+      padding: 13px 26px; border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.35);
+    }
+    .btn-outline-white:hover {
+      border-color: rgba(255,255,255,0.7); transform: translateY(-1px);
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100; transition: background 0.2s ease, box-shadow 0.2s ease;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 var(--gray-200);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px; max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 32px; }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--gray-700);
+      text-decoration: none; padding: 8px 14px; border-radius: 8px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--text-main); background: var(--gray-100); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .nav-hamburger {
+      display: none; background: none; border: none;
+      cursor: pointer; padding: 6px; border-radius: 8px;
+      flex-direction: column; gap: 5px; align-items: center; justify-content: center;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--navy); border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+      background: var(--white); z-index: 99; padding: 24px;
+      flex-direction: column; gap: 8px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 18px; font-weight: 600; color: var(--text-main);
+      text-decoration: none; padding: 14px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 160px 0 100px;
+      background: linear-gradient(160deg, #f0f4f8 0%, #ffffff 50%, #fff5f5 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(230,51,41,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -100px; left: -100px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(44,62,80,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: flex; align-items: center; gap: 64px;
+      max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+      position: relative; z-index: 1;
+    }
+    .hero-content { flex: 1; max-width: 580px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(230,51,41,0.08); color: var(--red);
+      font-size: 13px; font-weight: 600; padding: 6px 14px;
+      border-radius: 100px; margin-bottom: 24px;
+      border: 1px solid rgba(230,51,41,0.15);
+    }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--red); display: block; }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(40px, 5vw, 64px); font-weight: 800;
+      line-height: 1.08; letter-spacing: -0.03em;
+      color: var(--text-main); margin-bottom: 24px;
+    }
+    .hero h1 em { font-style: normal; color: var(--red); }
+    .hero-sub {
+      font-size: 18px; color: var(--text-muted); line-height: 1.7;
+      margin-bottom: 40px; max-width: 480px;
+    }
+    .hero-cta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .hero-social-proof {
+      margin-top: 48px; display: flex; align-items: center; gap: 12px;
+    }
+    .hero-avatars { display: flex; }
+    .hero-avatars img {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 2px solid var(--white);
+      margin-left: -10px; object-fit: cover;
+    }
+    .hero-avatars img:first-child { margin-left: 0; }
+    .hero-proof-text { font-size: 13px; color: var(--text-muted); }
+    .hero-proof-text strong { color: var(--text-main); font-weight: 600; }
+    .hero-visual {
+      flex: 1; max-width: 480px;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .hero-card-stack { position: relative; width: 100%; }
+    .hero-card {
+      background: var(--white); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card); padding: 28px;
+      border: 1px solid var(--gray-200);
+    }
+    .hero-card-main {
+      position: relative; z-index: 2;
+    }
+    .hero-card-accent {
+      position: absolute; top: -16px; right: -16px;
+      background: var(--navy); border-radius: var(--radius-md);
+      padding: 16px 20px; z-index: 3;
+      box-shadow: 0 8px 24px rgba(26,37,47,0.25);
+    }
+    .hero-card-accent p { font-size: 24px; font-weight: 800; color: var(--white); }
+    .hero-card-accent span { font-size: 12px; color: rgba(255,255,255,0.6); }
+    .stat-row { display: flex; gap: 8px; margin-bottom: 16px; align-items: center; }
+    .stat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+    .stat-bar { flex: 1; height: 8px; background: var(--gray-100); border-radius: 100px; overflow: hidden; }
+    .stat-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--red), var(--red-light)); }
+    .hero-card-label { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .hero-card-title { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
+    .hero-card-sub { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── TICKER / MARQUEE ── */
+    .marquee-section {
+      padding: 32px 0;
+      background: var(--navy-dark);
+      overflow: hidden; position: relative;
+    }
+    .marquee-track {
+      display: flex; gap: 0; width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 40px; white-space: nowrap;
+      font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.55);
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .marquee-item:last-child { border-right: none; }
+    .marquee-icon { width: 20px; height: 20px; border-radius: 50%; background: rgba(230,51,41,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .marquee-icon svg { width: 10px; height: 10px; fill: var(--red-light); }
+
+    /* ── SERVICES ── */
+    .services { padding: 96px 0; background: var(--white); }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--red);
+      margin-bottom: 16px;
+    }
+    .section-eyebrow::before, .section-eyebrow::after {
+      content: ''; display: block; width: 24px; height: 1.5px; background: var(--red); opacity: 0.5;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 4vw, 48px); font-weight: 800;
+      line-height: 1.1; letter-spacing: -0.03em;
+      color: var(--text-main); margin-bottom: 16px;
+    }
+    .section-title em { font-style: normal; color: var(--red); }
+    .section-sub {
+      font-size: 17px; color: var(--text-muted); line-height: 1.65;
+      max-width: 560px; margin: 0 auto;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .service-card {
+      background: var(--white); border-radius: var(--radius-lg);
+      padding: 36px 32px; border: 1.5px solid var(--gray-200);
+      transition: transform 0.22s cubic-bezier(.22,1,.36,1),
+                  box-shadow 0.22s cubic-bezier(.22,1,.36,1),
+                  border-color 0.22s ease;
+      cursor: default; position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--red-light));
+      opacity: 0; transition: opacity 0.22s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--gray-100);
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: var(--radius-md);
+      background: rgba(230,51,41,0.08);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .service-icon svg { width: 24px; height: 24px; }
+    .service-card h3 {
+      font-size: 20px; font-weight: 700; color: var(--text-main);
+      margin-bottom: 10px; letter-spacing: -0.01em;
+    }
+    .service-card p {
+      font-size: 15px; color: var(--text-muted); line-height: 1.65; margin-bottom: 24px;
+    }
+    .service-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 600; color: var(--red);
+      text-decoration: none;
+      transition: gap 0.18s ease;
+    }
+    .service-link:hover { gap: 10px; }
+    .service-link svg { width: 14px; height: 14px; }
+
+    /* ── HOW IT WORKS ── */
+    .how { padding: 96px 0; background: var(--gray-50); }
+    .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .how-steps { display: flex; flex-direction: column; gap: 0; }
+    .how-step {
+      display: flex; gap: 24px; padding: 28px 0;
+      border-bottom: 1px solid var(--gray-200); cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .how-step:last-child { border-bottom: none; }
+    .how-step:hover { opacity: 0.85; }
+    .step-num {
+      width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+      background: var(--gray-200); color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 15px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .how-step.active .step-num {
+      background: var(--red); color: var(--white);
+    }
+    .step-content h4 {
+      font-size: 17px; font-weight: 700; color: var(--text-main);
+      margin-bottom: 6px; letter-spacing: -0.01em;
+    }
+    .step-content p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .how-visual {
+      background: var(--white); border-radius: var(--radius-xl);
+      padding: 40px; box-shadow: var(--shadow-card);
+      border: 1px solid var(--gray-200);
+    }
+    .how-visual-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;
+    }
+    .automation-flow {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .flow-node {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; border-radius: var(--radius-md);
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+    }
+    .flow-node.active { background: rgba(230,51,41,0.06); border-color: rgba(230,51,41,0.2); }
+    .flow-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+      background: var(--gray-300);
+    }
+    .flow-node.active .flow-dot { background: var(--red); }
+    .flow-text { font-size: 14px; font-weight: 500; color: var(--text-main); }
+    .flow-time { margin-left: auto; font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .flow-connector {
+      width: 1.5px; height: 16px; background: var(--gray-200);
+      margin: 0 0 0 20px;
+    }
+
+    /* ── METRICS ── */
+    .metrics { padding: 96px 0; background: var(--navy-dark); }
+    .metrics .section-title, .metrics .section-sub { color: var(--white); }
+    .metrics .section-sub { color: rgba(255,255,255,0.6); }
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 64px; }
+    .metric-item {
+      padding: 40px 32px; background: rgba(255,255,255,0.04);
+      text-align: center; border-radius: var(--radius-md);
+      transition: background 0.2s;
+    }
+    .metric-item:hover { background: rgba(255,255,255,0.07); }
+    .metric-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 52px; font-weight: 800; color: var(--white);
+      letter-spacing: -0.03em; line-height: 1;
+      margin-bottom: 8px;
+    }
+    .metric-num span { color: var(--red); }
+    .metric-label { font-size: 15px; color: rgba(255,255,255,0.55); font-weight: 500; }
+
+    /* ── INDUSTRIES ── */
+    .industries { padding: 96px 0; background: var(--white); }
+    .industries-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px;
+    }
+    .industry-chip {
+      padding: 20px 24px; border-radius: var(--radius-md);
+      background: var(--gray-50); border: 1.5px solid var(--gray-200);
+      display: flex; align-items: center; gap: 12px;
+      font-size: 15px; font-weight: 600; color: var(--gray-700);
+      transition: transform 0.2s, border-color 0.2s, background 0.2s;
+      cursor: default;
+    }
+    .industry-chip:hover {
+      transform: translateY(-2px);
+      border-color: var(--red); background: rgba(230,51,41,0.04); color: var(--red);
+    }
+    .industry-chip svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* ── LOGOS ── */
+    .logos { padding: 80px 0; background: var(--gray-50); }
+    .logos-label {
+      text-align: center; font-size: 13px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+    .logos-grid {
+      display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+      gap: 40px 56px;
+    }
+    .logo-item {
+      font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800;
+      color: var(--gray-400); letter-spacing: -0.02em;
+      transition: color 0.2s; cursor: default;
+    }
+    .logo-item:hover { color: var(--navy); }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      padding: 96px 0;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+      position: relative; overflow: hidden;
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute; top: -120px; right: -120px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(230,51,41,0.15) 0%, transparent 70%);
+    }
+    .cta-band-inner { text-align: center; position: relative; z-index: 1; }
+    .cta-band h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 4vw, 52px); font-weight: 800;
+      letter-spacing: -0.03em; color: var(--white); margin-bottom: 20px;
+    }
+    .cta-band h2 em { font-style: normal; color: var(--red-light); }
+    .cta-band p {
+      font-size: 18px; color: rgba(255,255,255,0.65); line-height: 1.65;
+      max-width: 520px; margin: 0 auto 40px;
+    }
+    .cta-band-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { padding: 96px 0; background: var(--white); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+    .testimonial-card {
+      background: var(--gray-50); border-radius: var(--radius-lg);
+      padding: 32px; border: 1.5px solid var(--gray-200);
+      transition: transform 0.22s cubic-bezier(.22,1,.36,1), box-shadow 0.22s ease;
+    }
+    .testimonial-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .testimonial-stars { color: #f59e0b; font-size: 15px; margin-bottom: 20px; }
+    .testimonial-card p {
+      font-size: 15px; color: var(--gray-700); line-height: 1.7;
+      margin-bottom: 24px; font-style: italic;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700; color: var(--white);
+      flex-shrink: 0;
+    }
+    .testimonial-name { font-size: 14px; font-weight: 700; color: var(--text-main); }
+    .testimonial-role { font-size: 13px; color: var(--text-muted); }
+
+    /* ── FAQ ── */
+    .faq { padding: 96px 0; background: var(--gray-50); }
+    .faq-list { max-width: 720px; margin: 56px auto 0; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--white); border-radius: var(--radius-md);
+      border: 1.5px solid var(--gray-200); overflow: hidden;
+    }
+    .faq-question {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 24px; text-align: left;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px; font-weight: 600; color: var(--text-main);
+      transition: background 0.15s;
+    }
+    .faq-question:hover { background: var(--gray-50); }
+    .faq-icon {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--gray-100); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: transform 0.25s ease, background 0.2s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--red); }
+    .faq-icon svg { width: 12px; height: 12px; }
+    .faq-item.open .faq-icon svg { stroke: white; }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 24px;
+      font-size: 15px; color: var(--text-muted); line-height: 1.7;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; padding: 0 24px 20px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy-dark); padding: 72px 0 40px; }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+      padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-brand img { height: 28px; margin-bottom: 16px; filter: brightness(0) invert(1); }
+    .footer-brand p {
+      font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.65;
+      max-width: 280px; margin-bottom: 24px;
+    }
+    .footer-socials { display: flex; gap: 10px; }
+    .footer-social {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: background 0.2s, transform 0.2s;
+    }
+    .footer-social:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+    .footer-social svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.7); }
+    .footer-col h5 {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col ul li a {
+      font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 32px; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,0.4); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a {
+      font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-legal a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero-visual { display: none; }
+      .how-grid { grid-template-columns: 1fr; }
+      .how-visual { max-width: 540px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .industries-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-actions .btn-outline { display: none; }
+      .nav-hamburger { display: flex; }
+      .services-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .industries-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .hero { padding: 120px 0 72px; }
+      .how-visual { display: none; }
+    }
+    @media (max-width: 480px) {
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .industries-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── FADE-IN ANIMATION ── */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(.22,1,.36,1);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav id="mainNav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/assets/logo.png" alt="Vessellax" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="/services.html">Services</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/#how">How It Works</a></li>
+        <li><a href="/#industries">Industries</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="/about.html" class="btn btn-outline" style="font-size:14px;padding:9px 18px;">Learn More</a>
+        <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:14px;padding:9px 20px;">Book a Free Call</a>
+        <button class="nav-hamburger" id="hamburgerBtn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/services.html">Services</a>
+    <a href="/about.html">About</a>
+    <a href="/#how">How It Works</a>
+    <a href="/#industries">Industries</a>
+    <a href="/contact.html">Contact</a>
+    <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:16px;justify-content:center;">Book a Free Call</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span></span>
+          AI Automation Built for Service Businesses
+        </div>
+        <h1>Automate Your Business.<br /><em>Grow Without</em> Limits.</h1>
+        <p class="hero-sub">
+          Vessellax builds custom AI systems that handle your busywork —
+          scheduling, follow-ups, lead capture, and more — so your team
+          can focus on delivering exceptional service.
+        </p>
+        <div class="hero-cta">
+          <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary">Book a Free Consultation</a>
+          <a href="/#how" class="btn btn-outline">See How It Works</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-stack">
+          <div class="hero-card hero-card-main">
+            <p class="hero-card-label">Live Automation Dashboard</p>
+            <p class="hero-card-title">New lead captured — roofing inquiry</p>
+            <p class="hero-card-sub" style="margin-bottom:24px;">AI qualified, booked estimate, and sent confirmation — in under 60 seconds.</p>
+            <div class="stat-row"><div class="stat-dot"></div><div class="stat-bar"><div class="stat-fill" style="width:87%"></div></div></div>
+            <div class="stat-row"><div class="stat-dot" style="background:#2c3e50"></div><div class="stat-bar"><div class="stat-fill" style="width:63%;background:linear-gradient(90deg,#2c3e50,#3d5166)"></div></div></div>
+            <div class="stat-row"><div class="stat-dot" style="background:#f59e0b"></div><div class="stat-bar"><div class="stat-fill" style="width:42%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div></div>
+          </div>
+          <div class="hero-card-accent">
+            <p>87%</p>
+            <span>Response time saved</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <!-- First set -->
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>24/7 Lead Capture</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Automated Follow-Ups</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Instant Appointment Booking</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>AI-Powered Customer Support</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Review Generation</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Pipeline Management</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Invoice Automation</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Staff Scheduling</div>
+      <!-- Duplicate for seamless loop -->
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>24/7 Lead Capture</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Automated Follow-Ups</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Instant Appointment Booking</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>AI-Powered Customer Support</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Review Generation</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Pipeline Management</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Invoice Automation</div>
+      <div class="marquee-item"><div class="marquee-icon"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3"/></svg></div>Staff Scheduling</div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">What We Build</div>
+        <h2 class="section-title">Three Ways We <em>Eliminate Busywork</em></h2>
+        <p class="section-sub">
+          Every Vessellax system is custom-built for your business — not a template, not a plugin. Real automation that fits your exact workflow.
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card fade-up">
+          <div class="service-icon">
+            <!-- Lead & Scheduling icon -->
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="#e63329">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+            </svg>
+          </div>
+          <h3>Lead Capture & Scheduling</h3>
+          <p>Never lose a lead again. Our AI responds instantly to every inquiry — day or night — qualifies prospects, and books appointments directly into your calendar without any manual effort.</p>
+          <a href="/services.html" class="service-link">
+            Explore service
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+          </a>
+        </div>
+        <div class="service-card fade-up" style="transition-delay:0.08s">
+          <div class="service-icon">
+            <!-- Customer comms icon -->
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="#e63329">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+            </svg>
+          </div>
+          <h3>Customer Communication Automation</h3>
+          <p>Automated follow-ups, appointment reminders, job updates, and review requests — all sent at exactly the right time. Keep every customer informed while your team focuses on the job.</p>
+          <a href="/services.html" class="service-link">
+            Explore service
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+          </a>
+        </div>
+        <div class="service-card fade-up" style="transition-delay:0.16s">
+          <div class="service-icon">
+            <!-- Operations icon -->
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="#e63329">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+            </svg>
+          </div>
+          <h3>Operations & Reporting AI</h3>
+          <p>Get live dashboards, automated reports, and intelligent alerts built around your KPIs. Spot issues before they become problems — with AI that monitors your business around the clock.</p>
+          <a href="/services.html" class="service-link">
+            Explore service
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="container">
+      <div class="how-grid">
+        <div>
+          <div class="section-eyebrow" style="justify-content:flex-start">Our Process</div>
+          <h2 class="section-title" style="text-align:left">From Discovery<br />to <em>Live in Weeks</em></h2>
+          <p class="section-sub" style="text-align:left;margin:0 0 40px">
+            No lengthy contracts, no endless back-and-forths. We move fast so your business starts saving time fast.
+          </p>
+          <div class="how-steps">
+            <div class="how-step active">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>Free Strategy Call</h4>
+                <p>We map your current workflows, identify where time is wasted, and define exactly what to automate first.</p>
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>Custom Build</h4>
+                <p>Our team designs and builds your automation system from scratch — tailored to your tools, your brand, and your team.</p>
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>Launch & Train</h4>
+                <p>We deploy everything, train your team, and monitor performance so nothing falls through the cracks.</p>
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <h4>Optimize & Scale</h4>
+                <p>As your business grows, we continuously refine the system and expand automation to new areas of your operation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="how-visual">
+          <p class="how-visual-label">Automation in Action</p>
+          <div class="automation-flow">
+            <div class="flow-node active">
+              <div class="flow-dot"></div>
+              <div class="flow-text">New lead submits contact form</div>
+              <div class="flow-time">0:00</div>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-node active">
+              <div class="flow-dot"></div>
+              <div class="flow-text">AI qualifies & scores lead</div>
+              <div class="flow-time">0:04</div>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-node active">
+              <div class="flow-dot"></div>
+              <div class="flow-text">Appointment booked in calendar</div>
+              <div class="flow-time">0:12</div>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-node">
+              <div class="flow-dot"></div>
+              <div class="flow-text">Confirmation sent to customer</div>
+              <div class="flow-time">0:13</div>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-node">
+              <div class="flow-dot"></div>
+              <div class="flow-text">Team notified with full brief</div>
+              <div class="flow-time">0:14</div>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-node">
+              <div class="flow-dot"></div>
+              <div class="flow-text">Reminder sequence activated</div>
+              <div class="flow-time">0:15</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section class="metrics">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow" style="color:rgba(255,255,255,0.5)">
+          <span style="background:rgba(255,255,255,0.2);display:block;width:24px;height:1.5px"></span>
+          Results
+          <span style="background:rgba(255,255,255,0.2);display:block;width:24px;height:1.5px"></span>
+        </div>
+        <h2 class="section-title">The Numbers Don't Lie</h2>
+        <p class="section-sub">What the research shows about businesses that invest in AI automation — across every service industry.</p>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric-item fade-up">
+          <div class="metric-num">451<span>%</span></div>
+          <div class="metric-label">More qualified leads with automated follow-up nurturing</div>
+        </div>
+        <div class="metric-item fade-up" style="transition-delay:0.07s">
+          <div class="metric-num">80<span>%</span></div>
+          <div class="metric-label">Of routine customer inquiries handled automatically by AI</div>
+        </div>
+        <div class="metric-item fade-up" style="transition-delay:0.14s">
+          <div class="metric-num">6<span>hrs</span></div>
+          <div class="metric-label">Saved per employee per week through automation on average</div>
+        </div>
+        <div class="metric-item fade-up" style="transition-delay:0.21s">
+          <div class="metric-num">9<span>×</span></div>
+          <div class="metric-label">More likely to qualify a lead when responding within 5 minutes</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section class="industries" id="industries">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Who We Serve</div>
+        <h2 class="section-title">Built for <em>Every Service</em> Business</h2>
+        <p class="section-sub">If your business runs on appointments, jobs, or recurring services — Vessellax automates it.</p>
+      </div>
+      <div class="industries-grid">
+        <div class="industry-chip fade-up">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+          Home Services
+        </div>
+        <div class="industry-chip fade-up" style="transition-delay:0.04s">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 1-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" /></svg>
+          Medical & Wellness
+        </div>
+        <div class="industry-chip fade-up" style="transition-delay:0.08s">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" /></svg>
+          Trades & Contractors
+        </div>
+        <div class="industry-chip fade-up" style="transition-delay:0.12s">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+          Salons & Spas
+        </div>
+        <div class="industry-chip fade-up" style="transition-delay:0.16s">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" /></svg>
+          Tutoring & Education
+        </div>
+        <div class="industry-chip fade-up" style="transition-delay:0.20s">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" /></svg>
+          Auto & Transport
+        </div>
+        <div class="industry-chip fade-up" style="transition-delay:0.24s">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" /></svg>
+          Real Estate & Property
+        </div>
+        <div class="industry-chip fade-up" style="transition-delay:0.28s">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605" /></svg>
+          Marketing & Agencies
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS -->
+  <div class="logos">
+    <div class="container">
+      <p class="logos-label">Trusted tools we automate with</p>
+      <div class="logos-grid">
+        <span class="logo-item">HubSpot</span>
+        <span class="logo-item">Salesforce</span>
+        <span class="logo-item">Zapier</span>
+        <span class="logo-item">GoHighLevel</span>
+        <span class="logo-item">Calendly</span>
+        <span class="logo-item">Slack</span>
+        <span class="logo-item">QuickBooks</span>
+        <span class="logo-item">Jobber</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="container">
+      <div class="cta-band-inner fade-up">
+        <h2>Ready to Run Your Business<br /><em>On Autopilot?</em></h2>
+        <p>Tell us what you do and we'll show you exactly which parts of your business we can automate — in a free 30-minute strategy call.</p>
+        <div class="cta-band-actions">
+          <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:16px;padding:15px 32px;">Book a Free Strategy Call</a>
+          <a href="/services.html" class="btn btn-outline-white" style="font-size:16px;padding:15px 32px;">Explore Our Services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">FAQ</div>
+        <h2 class="section-title">Common <em>Questions</em></h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            How long does it take to get set up?
+            <div class="faq-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">Most clients are fully live within 2–3 weeks. We start with a discovery call, build your custom system, run a testing phase, and deploy — all within that window. Complex multi-system automations may take slightly longer.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Do I need to know anything about AI or tech?
+            <div class="faq-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">Not at all. We handle everything technical. You just need to know your business — what's taking too much time, where leads slip through, what tasks repeat daily. We take it from there.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Will this work with my existing tools?
+            <div class="faq-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">Almost certainly yes. We integrate with the most popular CRMs, scheduling platforms, communication tools, and field service software. If you use it, we can likely automate around it. We'll confirm during your strategy call.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What does it cost?
+            <div class="faq-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">Pricing depends on the scope of automation. We offer a flat project fee for the build plus a monthly maintenance retainer. Book a free call and we'll give you a clear, honest estimate based on your specific needs — no vague quotes.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Is this a one-time build or ongoing service?
+            <div class="faq-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">Both. We build it once, then maintain and improve it on an ongoing retainer. As your business evolves, so does the automation. We also offer one-time project builds for clients who want to manage things in-house afterward.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="/assets/logo.png" alt="Vessellax" />
+          <p>Vessellax builds custom AI automation systems for service businesses — so you can grow without growing your headcount.</p>
+          <div class="footer-socials">
+            <!-- LinkedIn -->
+            <a href="#" class="footer-social" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg>
+            </a>
+            <!-- Twitter/X -->
+            <a href="#" class="footer-social" aria-label="Twitter">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <!-- Instagram -->
+            <a href="#" class="footer-social" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3Z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="/services.html">Lead Capture & Scheduling</a></li>
+            <li><a href="/services.html">Customer Comms</a></li>
+            <li><a href="/services.html">Operations & Reporting</a></li>
+            <li><a href="/services.html">Custom AI Builds</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/#industries">Industries</a></li>
+            <li><a href="/#how">How It Works</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Get Started</h5>
+          <ul>
+            <li><a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener">Book a Free Call</a></li>
+            <li><a href="/contact.html">Get a Quote</a></li>
+            <li><a href="/about.html">Our Process</a></li>
+            <li><a href="/contact.html">Partner With Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Vessellax. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Nav scroll behavior ──
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ── Mobile menu ──
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // ── FAQ accordion ──
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // ── How It Works step cycling ──
+    const steps = document.querySelectorAll('.how-step');
+    let activeStep = 0;
+    function cycleStep(n) {
+      steps.forEach(s => s.classList.remove('active'));
+      steps[n].classList.add('active');
+    }
+    steps.forEach((step, i) => {
+      step.addEventListener('click', () => { activeStep = i; cycleStep(i); });
+    });
+    setInterval(() => {
+      activeStep = (activeStep + 1) % steps.length;
+      cycleStep(activeStep);
+    }, 3000);
+
+    // ── Intersection observer fade-in ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+  <script
+    src="https://widgets.leadconnectorhq.com/loader.js"
+    data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+    data-widget-id="69aeccd40eb1990a7d1c1195">
+  </script>
+</body>
+</html>

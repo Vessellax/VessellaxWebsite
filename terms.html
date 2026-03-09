@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms & Conditions — Vessellax</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #2c3e50; --navy-dark: #1a252f; --navy-light: #3d5166;
+      --red: #e63329; --red-dark: #c0271e;
+      --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb; --gray-400: #9ca3af; --gray-700: #374151;
+      --text-main: #1a1a2e; --text-muted: #6b7280;
+      --radius-md: 12px; --radius-lg: 20px; --radius-xl: 32px;
+      --shadow-card: 0 2px 8px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.08);
+      --max-w: 1120px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-main); background: var(--white); -webkit-font-smoothing: antialiased; }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; text-decoration: none; border: none; outline: none; transition: transform 0.18s cubic-bezier(.22,1,.36,1), box-shadow 0.18s, background 0.18s; }
+    .btn:active { transform: scale(0.97) !important; }
+    .btn-primary { background: var(--red); color: var(--white); padding: 13px 26px; border-radius: 100px; box-shadow: 0 2px 8px rgba(230,51,41,0.25), 0 4px 20px rgba(230,51,41,0.15); }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(230,51,41,0.35); }
+    .btn-outline { background: transparent; color: var(--navy); padding: 12px 24px; border-radius: 100px; border: 1.5px solid var(--gray-200); }
+    .btn-outline:hover { border-color: var(--navy); transform: translateY(-1px); }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--gray-200); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 32px; }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--gray-700); text-decoration: none; padding: 8px 14px; border-radius: 8px; transition: color 0.15s, background 0.15s; }
+    .nav-links a:hover { color: var(--text-main); background: var(--gray-100); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; border-radius: 8px; flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--navy); border-radius: 2px; }
+    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; bottom: 0; background: var(--white); z-index: 99; padding: 24px; flex-direction: column; gap: 8px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 18px; font-weight: 600; color: var(--text-main); text-decoration: none; padding: 14px 0; border-bottom: 1px solid var(--gray-100); }
+
+    /* PAGE CONTENT */
+    .legal-page { padding: 120px 0 96px; }
+    .legal-inner { max-width: 800px; margin: 0 auto; }
+    .legal-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+    .legal-eyebrow::before, .legal-eyebrow::after { content: ''; display: block; width: 24px; height: 1.5px; background: var(--red); opacity: 0.5; }
+    .legal-page h1 { font-family: 'Syne', sans-serif; font-size: clamp(32px, 4vw, 48px); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--text-main); margin-bottom: 12px; }
+    .legal-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1.5px solid var(--gray-200); }
+    .legal-body h2 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--text-main); margin: 40px 0 12px; letter-spacing: -0.02em; }
+    .legal-body h2:first-child { margin-top: 0; }
+    .legal-body h3 { font-size: 16px; font-weight: 700; color: var(--text-main); margin: 24px 0 8px; }
+    .legal-body p { font-size: 16px; line-height: 1.75; color: var(--gray-700); margin-bottom: 16px; }
+    .legal-body ul, .legal-body ol { padding-left: 24px; margin-bottom: 16px; }
+    .legal-body li { font-size: 16px; line-height: 1.75; color: var(--gray-700); margin-bottom: 6px; }
+    .legal-section { margin-bottom: 8px; }
+    .legal-divider { border: none; border-top: 1.5px solid var(--gray-200); margin: 48px 0; }
+
+    /* FOOTER */
+    footer { background: var(--navy-dark); color: var(--white); padding: 80px 0 40px; }
+    .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px; }
+    .footer-brand img { height: 28px; filter: brightness(0) invert(1); margin-bottom: 16px; display: block; }
+    .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 24px; }
+    .footer-socials { display: flex; gap: 12px; }
+    .footer-social { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: background 0.15s, transform 0.15s; }
+    .footer-social:hover { background: rgba(255,255,255,0.16); transform: translateY(-1px); }
+    .footer-social svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.7); }
+    .footer-col h5 { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-size: 14px; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.15s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,0.35); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.15s; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.7); }
+
+    @media (max-width: 1024px) {
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-actions .btn-outline { display: none; }
+      .nav-hamburger { display: flex; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/assets/logo.png" alt="Vessellax" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="/services.html">Services</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/#how">How It Works</a></li>
+        <li><a href="/#industries">Industries</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="/about.html" class="btn btn-outline" style="font-size:14px;padding:9px 18px;">Learn More</a>
+        <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:14px;padding:9px 20px;">Book a Free Call</a>
+        <button class="nav-hamburger" id="hamburgerBtn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/services.html">Services</a>
+    <a href="/about.html">About</a>
+    <a href="/#how">How It Works</a>
+    <a href="/#industries">Industries</a>
+    <a href="/contact.html">Contact</a>
+    <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:16px;justify-content:center;">Book a Free Call</a>
+  </div>
+
+  <!-- LEGAL PAGE -->
+  <div class="legal-page">
+    <div class="container">
+      <div class="legal-inner">
+        <div class="legal-eyebrow">Legal</div>
+        <h1>Terms &amp; Conditions</h1>
+        <p class="legal-meta">Effective Date: Feb 11, 2026</p>
+
+        <div class="legal-body">
+
+          <div class="legal-section">
+            <h2>TERMS AND CONDITIONS</h2>
+          </div>
+
+          <div class="legal-section">
+            <h2>1. Introduction</h2>
+            <p>1.1. Vessellax ("We," "Us," "Our," or "Company") is engaged by the Client ("You" or "Your") to provide services in accordance with these Terms and Conditions ("Agreement"). Vessellax is a Limited Liability Company (LLC) registered in the United States of America under its governing law.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>2. Definitions</h2>
+            <p>2.1. "Agreement" means these Terms and Conditions, including any incorporated Proposal.</p>
+            <p>2.2. "Confidential Information" means all non-public information disclosed between the parties, including but not limited to business strategies, client data, and proprietary methods.</p>
+            <p>2.3. "Proposal" means the email or document issued by Vessellax to the Client detailing the services, Fees, and specific terms.</p>
+            <p>2.4. "Service Date" means the date Vessellax begins providing services, confirmed after receipt of the Deposit.</p>
+            <p>2.5. "Service" means the Service outlined in the Proposal.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>3. Supply of Services</h2>
+            <p>3.1 Vessellax provides lead generation services and AI systems for Home Service and private equity backed businesses, including the collection of potential customer information and setting appointments for the client.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>4. Client Obligations</h2>
+            <p>4.1. The Client shall provide all necessary cooperation, access, and accurate, complete, and lawful information required by Vessellax to perform the Service effectively unless otherwise agreed.</p>
+            <p>4.2. The Client shall indemnify, defend, and hold Vessellax harmless against any losses, damages, claims, or liabilities (including legal fees) arising from inaccurate, misleading, incomplete, or unlawful information or content provided by the Client, or from the Client's breach of this Agreement.</p>
+            <p>4.3 The client must ensure their staff systematically follows up on the leads provided.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>5. Fees, Payments, and Refunds</h2>
+            <p>5.1 The client agrees to pay a retainer fee or pay per appointment fee as outlined in the service agreement provided. All advertising spend is the full responsibility of the client. Payments are non-refundable, except in certain situations where Vessellax has not provided the fulfillment that was outlined in the agreement.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>6. Termination</h2>
+            <p>6.1. This Agreement commences on the Service Date and continues until completion of the Service or termination per this Section.</p>
+            <p>6.2. Vessellax may terminate immediately, with written notice, for:</p>
+            <ul>
+              <li>Non-payment persists for 30 days after notice.</li>
+              <li>Client's material breach (e.g., failure to comply with 4.1) uncured within 30 days of notice.</li>
+            </ul>
+            <p>6.3. The Client may terminate after the minimum engagement period (5.6) with 30 days' written notice, provided all Fees are paid. Early termination incurs full Fees for the minimum period.</p>
+            <p>6.4 Vessellax reserves the right to terminate services if a client violates these terms or engages in unethical business practices.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>7. Liability and Indemnity</h2>
+            <p>7.1. Vessellax's total liability under this Agreement is limited to the Fees paid by the Client in the preceding 90 days. Vessellax shall not be liable for:</p>
+            <ul>
+              <li>Actions, inactions, or changes by third-party platforms;</li>
+              <li>Indirect, consequential, incidental, special, or punitive damages (including loss of business, profits, or data) arising from the Service, even if advised of such possibility; or</li>
+              <li>Any failure to achieve specific outcomes beyond Vessellax's reasonable control.</li>
+            </ul>
+            <p>7.2. The Client shall indemnify, defend, and hold Vessellax, its affiliates, officers, and agents harmless against any claims, damages, losses, or liabilities (including legal fees) arising from the Client's content, use of the Service, or breach of this Agreement.</p>
+            <p>7.3 Vessellax is hereby not liable for any damages, lost revenue, or issues related to the leads generated from the work provided.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>8. Governing Law</h2>
+            <p>8.1. This Agreement is governed by and construed under the laws of the United States of America. All disputes are subject to the exclusive jurisdiction of United States courts.</p>
+            <p>8.3. If any provision is invalid or unenforceable, the remaining provisions remain in full force; invalid terms will be reformed to the minimum extent necessary to be enforceable.</p>
+            <p>8.4 This Agreement, including the Proposal, constitutes the entire understanding between the parties, superseding all prior agreements, whether written or oral.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>9. Website Terms of Service</h2>
+            <p>9.1 <strong>Website Usage:</strong> The website located at www.Vessellax.com (the "Site") is owned and operated by Vessellax. By accessing or using the Site in any manner, whether automated or otherwise, you agree to be bound by this Agreement, including these Website Terms of Service, our Privacy Policy, and any additional terms applicable to specific sections of the Site or to products and services available through the Site or from Vessellax. Such access or use constitutes your acceptance of this Agreement.</p>
+            <p>9.2 <strong>Changes to Terms:</strong> We reserve the right to modify this Agreement, including these Website Terms of Service, or impose new conditions on the use of the Site, at our discretion. Any revisions will be posted on the Site, and your continued use of the Site thereafter constitutes acceptance of the Agreement as modified.</p>
+            <p>9.3 <strong>Intellectual Property Rights:</strong></p>
+            <p><strong>Our Limited License to You:</strong> The Site and all materials available thereon are the property of Vessellax, its affiliates, or licensors, protected by copyright, trademark, and other intellectual property laws. The Site is provided solely for your personal, non-commercial use. Unless explicitly authorized herein or by the material's owner, you may not modify, copy, reproduce, republish, upload, post, transmit, translate, sell, create derivative works from, exploit, or distribute any Site material in any manner or medium (including email or other electronic means).</p>
+            <p><strong>Your License to Us:</strong> By submitting material (e.g., comments, photos, videos) to us via the Site, social media, email, or otherwise, you represent that you own the material or have the owner's express consent.</p>
+            <p>9.4 <strong>Disclaimers:</strong> Links to third-party sites on the Site do not imply endorsement by Vessellax. We do not control or guarantee the accuracy, completeness, or reliability of third-party content, products, or services. The Site, its services, and third-party sites are provided "as is" without warranties, express or implied.</p>
+          </div>
+
+          <hr class="legal-divider" />
+
+          <div class="legal-section">
+            <h2>Additional Information Related to A2P Compliance Terms of Service Reviews</h2>
+            <p><strong>Description of SMS Use Cases:</strong> By providing your mobile number and opting in, you agree to receive SMS messages from Vessellax, LLC related to appointment confirmations, reminders, service updates, customer support communications, and, where applicable, promotional offers. Message content will correspond to your interaction with our services.</p>
+            <p><strong>Opt-Out Instructions:</strong> You may opt out of SMS communications at any time by replying STOP to any message. Once you opt out, you will no longer receive SMS messages unless you provide renewed consent.</p>
+            <p><strong>Customer Support Contact:</strong> For assistance regarding SMS communications, you may reply HELP to any message. You may also contact us directly at support@vessellax.com for additional support.</p>
+            <p><strong>Message &amp; Data Rates:</strong> Message frequency varies based on your engagement with our services. Message and data rates may apply according to your mobile carrier's pricing plan.</p>
+            <p><strong>Carrier Liability Disclaimer:</strong> Mobile carriers are not liable for delayed or undelivered messages. Delivery is subject to effective transmission by your mobile service provider.</p>
+            <p><strong>Age Restriction:</strong> SMS services are intended for individuals who are at least 18 years of age. By opting in, you represent and warrant that you meet this age requirement.</p>
+          </div>
+
+          <hr class="legal-divider" />
+
+          <div class="legal-section">
+            <h2>SMS Communications Terms (A2P / Carrier Compliance)</h2>
+            <p><strong>Program Description and Use Cases:</strong> Vessellax, LLC may send SMS messages to provide appointment confirmations and reminders, service and account notifications, customer support communications, and, if you separately opt in, promotional or marketing messages related to our services.</p>
+            <p><strong>Opt-In Consent:</strong> You only receive SMS messages if you affirmatively opt in (for example, by checking an unchecked consent box on our website or submitting a form that includes an SMS consent disclosure). Your consent is not a condition of purchase.</p>
+            <p><strong>Message Frequency:</strong> Message frequency varies based on your activity (such as appointments, support requests, and promotional enrollment). We do not guarantee a minimum or maximum number of messages.</p>
+            <p><strong>Message and Data Rates:</strong> Message and data rates may apply and are determined by your mobile carrier and plan. You are responsible for any charges incurred.</p>
+            <p><strong>Opt-Out Instructions:</strong> You can opt out at any time by replying STOP to any message (or using common variants such as STOPALL, UNSUBSCRIBE, END, CANCEL, or QUIT). After you opt out, we will send a one-time confirmation and you will no longer receive SMS messages unless you opt in again.</p>
+            <p><strong>Help and Customer Support:</strong> For help, reply HELP to any message for instructions. You may also contact us at support@vessellax.com for assistance.</p>
+            <p><strong>Carrier Liability Disclaimer:</strong> Mobile carriers are not liable for delayed or undelivered messages. Delivery is subject to your carrier's network availability and effective transmission.</p>
+            <p><strong>Supported Carriers and Availability:</strong> SMS services may not be available on all carriers or all mobile devices, and message delivery is not guaranteed. Vessellax, LLC is not responsible for messaging failures due to carrier restrictions, filtering, or device settings.</p>
+            <p><strong>Eligibility and Age Restriction (18+):</strong> Our SMS program is intended only for individuals who are at least 18 years old. By opting in, you represent that you are 18+ and authorized to use the mobile number provided.</p>
+            <p><strong>Privacy and Data Use:</strong> We use your phone number to send the SMS messages you opted in to receive and to maintain compliance records (such as opt-in/opt-out timestamps). For more information about how we collect and use information, review our <a href="/privacy.html" style="color:var(--red);text-decoration:underline;">Privacy Policy</a>.</p>
+            <p><strong>No Sale or Sharing of Phone Numbers:</strong> Vessellax, LLC does not sell or rent your mobile number, and we do not share it with third parties for their own marketing purposes. We may share information with service providers that help us deliver SMS messages (such as messaging platforms), only as needed to provide the service.</p>
+            <p><strong>Changes to SMS Terms:</strong> We may update these SMS terms from time to time, and continued participation after changes constitutes acceptance of the updated terms. If changes are material, we will post an updated version on our website.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="/assets/logo.png" alt="Vessellax" />
+          <p>Vessellax builds custom AI automation systems for service businesses — so you can grow without growing your headcount.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg>
+            </a>
+            <a href="#" class="footer-social" aria-label="Twitter">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="footer-social" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3Z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="/services.html">Lead Capture &amp; Scheduling</a></li>
+            <li><a href="/services.html">Customer Comms</a></li>
+            <li><a href="/services.html">Operations &amp; Reporting</a></li>
+            <li><a href="/services.html">Custom AI Builds</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/#industries">Industries</a></li>
+            <li><a href="/#how">How It Works</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Get Started</h5>
+          <ul>
+            <li><a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener">Book a Free Call</a></li>
+            <li><a href="/contact.html">Get a Quote</a></li>
+            <li><a href="/about.html">Our Process</a></li>
+            <li><a href="/contact.html">Partner With Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Vessellax. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script
+    src="https://widgets.leadconnectorhq.com/loader.js"
+    data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+    data-widget-id="69aeccd40eb1990a7d1c1195">
+  </script>
+
+  <script>
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { mobileMenu.classList.toggle('open'); });
+    mobileMenu.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => mobileMenu.classList.remove('open')); });
+  </script>
+</body>
+</html>
