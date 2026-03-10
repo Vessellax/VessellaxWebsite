@@ -84,17 +84,6 @@
     .value-card h3 { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 10px; }
     .value-card p { font-size: 15px; color: var(--text-muted); line-height: 1.65; }
 
-    /* Team */
-    .team { padding: 100px 0; }
-    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; }
-    .team-card { background: var(--white); border-radius: var(--radius-lg); overflow: hidden; border: 1.5px solid var(--gray-200); transition: transform 0.22s cubic-bezier(.22,1,.36,1), box-shadow 0.22s ease; }
-    .team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-    .team-photo { height: 240px; display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif; font-size: 56px; font-weight: 800; color: var(--white); }
-    .team-info { padding: 24px; }
-    .team-name { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
-    .team-role { font-size: 14px; color: var(--red); font-weight: 600; margin-bottom: 12px; }
-    .team-bio { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
-
     /* Timeline */
     .timeline { padding: 100px 0; background: var(--gray-50); }
     .timeline-inner { max-width: 720px; margin: 56px auto 0; }
@@ -142,13 +131,13 @@
 
     @media (max-width: 1024px) {
       .mission-inner { grid-template-columns: 1fr; gap: 48px; }
-      .values-grid, .team-grid { grid-template-columns: 1fr 1fr; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
       .nav-links, .nav-actions .btn-outline { display: none; }
       .nav-hamburger { display: flex; }
-      .values-grid, .team-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
     }
   </style>
@@ -278,43 +267,6 @@
           </div>
           <h3>Partnership Mindset</h3>
           <p>We treat every client engagement like a long-term partnership, not a project. Your success is our reputation — and we protect it fiercely.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TEAM -->
-  <section class="team">
-    <div class="container">
-      <div style="text-align:center">
-        <div class="section-eyebrow" style="justify-content:center">The Team</div>
-        <h2 class="section-title">The People <em>Behind the Systems</em></h2>
-        <p class="section-sub">A small, focused team of builders, strategists, and operators who live in automation and AI every day.</p>
-      </div>
-      <div class="team-grid">
-        <div class="team-card fade-up">
-          <div class="team-photo" style="background:linear-gradient(135deg,#1a252f 0%,#2c3e50 100%)">MR</div>
-          <div class="team-info">
-            <p class="team-name">Marcus Rivera</p>
-            <p class="team-role">Founder & CEO</p>
-            <p class="team-bio">Former operations manager turned AI builder. After watching small businesses struggle to compete, Marcus founded Vessellax to level the playing field. He's designed automation systems for 50+ companies across 12 industries.</p>
-          </div>
-        </div>
-        <div class="team-card fade-up" style="transition-delay:0.08s">
-          <div class="team-photo" style="background:linear-gradient(135deg,#c0271e 0%,#e63329 100%)">JC</div>
-          <div class="team-info">
-            <p class="team-name">Jordan Chen</p>
-            <p class="team-role">Head of AI Engineering</p>
-            <p class="team-bio">Jordan architects the AI systems that power every Vessellax build. With a background in machine learning and enterprise software, she ensures every system is reliable, scalable, and performant under real-world conditions.</p>
-          </div>
-        </div>
-        <div class="team-card fade-up" style="transition-delay:0.16s">
-          <div class="team-photo" style="background:linear-gradient(135deg,#3d5166 0%,#2c3e50 100%)">TP</div>
-          <div class="team-info">
-            <p class="team-name">Tyler Park</p>
-            <p class="team-role">Client Success Lead</p>
-            <p class="team-bio">Tyler makes sure every client gets maximum value from their Vessellax system. He manages onboarding, training, and ongoing optimization — and is usually the person you'll speak with when you book a strategy call.</p>
-          </div>
         </div>
       </div>
     </div>
