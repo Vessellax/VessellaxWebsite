@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Opportunities — Vessellax</title>
+  <title>micro1 Referral Opportunities — Vessellax</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
@@ -190,14 +190,27 @@
       padding: 4px 10px; border-radius: 100px;
     }
     /* Category color variants */
-    .badge-courses   { background: rgba(59,130,246,0.1); color: #2563eb; }
-    .badge-coaching  { background: rgba(16,185,129,0.1); color: #059669; }
-    .badge-corporate { background: rgba(139,92,246,0.1); color: #7c3aed; }
-    .badge-content   { background: rgba(245,158,11,0.1); color: #d97706; }
-    .badge-community { background: rgba(236,72,153,0.1); color: #be185d; }
-    .badge-bootcamp  { background: rgba(230,51,41,0.1);  color: var(--red); }
-    .badge-curriculum{ background: rgba(20,184,166,0.1); color: #0f766e; }
-    .badge-research  { background: rgba(99,102,241,0.1); color: #4338ca; }
+    .badge-finance   { background: rgba(16,185,129,0.1); color: #059669; }
+    .badge-dev       { background: rgba(139,92,246,0.1); color: #7c3aed; }
+    .badge-ai        { background: rgba(99,102,241,0.1); color: #4338ca; }
+    .badge-health    { background: rgba(20,184,166,0.1); color: #0f766e; }
+    .badge-creative  { background: rgba(245,158,11,0.1); color: #d97706; }
+    .badge-gamedev   { background: rgba(236,72,153,0.1); color: #be185d; }
+    .badge-language  { background: rgba(6,182,212,0.1);  color: #0e7490; }
+    .badge-education { background: rgba(132,204,22,0.1); color: #4d7c0f; }
+    .badge-ops       { background: rgba(107,114,128,0.1); color: #374151; }
+
+    /* Referral bonus badge */
+    .opp-referral-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 800;
+      color: #059669; background: rgba(16,185,129,0.1);
+      border: 1.5px solid rgba(16,185,129,0.25);
+      padding: 5px 12px; border-radius: 100px; white-space: nowrap;
+    }
+    .opp-referral-badge::before {
+      content: '↗'; font-size: 13px; font-weight: 900;
+    }
 
     .opp-pay {
       font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800;
@@ -371,26 +384,26 @@
   <!-- PAGE HERO -->
   <section class="page-hero">
     <div class="container" style="position:relative;z-index:1;">
-      <div class="eyebrow fade-up">AI Career Opportunities</div>
-      <h1 class="fade-up" style="transition-delay:0.07s;">Teach AI. <em>Shape the Future.</em></h1>
+      <div class="eyebrow fade-up">micro1 Referral Platform</div>
+      <h1 class="fade-up" style="transition-delay:0.07s;">Refer Experts. <em>Get Paid.</em></h1>
       <p class="fade-up" style="transition-delay:0.14s;">
-        We've curated the best opportunities to teach, coach, and create in the AI space —
-        from online courses to corporate training. Find your next role below.
+        Know a skilled professional? Refer them to micro1 and earn <strong>$25–$3,000 per hire</strong>.
+        Browse open roles across finance, tech, healthcare, and more.
       </p>
       <div class="hero-stats fade-up" style="transition-delay:0.21s;">
         <div class="hero-stat">
           <div class="hero-stat-value" id="totalCount">0</div>
-          <div class="hero-stat-label">Opportunities Listed</div>
-        </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat-value-wrap hero-stat">
-          <div class="hero-stat-value">8</div>
-          <div class="hero-stat-label">Categories</div>
+          <div class="hero-stat-label">Open Roles</div>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
-          <div class="hero-stat-value"><em>Remote</em></div>
-          <div class="hero-stat-label">Friendly Roles</div>
+          <div class="hero-stat-value"><em>$3,000</em></div>
+          <div class="hero-stat-label">Max Referral Bonus</div>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-value"><em>100%</em></div>
+          <div class="hero-stat-label">Remote Friendly</div>
         </div>
       </div>
     </div>
@@ -406,14 +419,15 @@
         </div>
         <div class="category-chips" id="chipContainer">
           <button class="chip active" data-cat="all">All</button>
-          <button class="chip" data-cat="Online Courses">Online Courses</button>
-          <button class="chip" data-cat="1-on-1 Coaching">1-on-1 Coaching</button>
-          <button class="chip" data-cat="Corporate Training">Corporate Training</button>
-          <button class="chip" data-cat="Content Creation">Content Creation</button>
-          <button class="chip" data-cat="Bootcamps">Bootcamps</button>
-          <button class="chip" data-cat="Curriculum Design">Curriculum Design</button>
-          <button class="chip" data-cat="Community Teaching">Community Teaching</button>
-          <button class="chip" data-cat="Research">Research</button>
+          <button class="chip" data-cat="Finance">Finance</button>
+          <button class="chip" data-cat="Software Dev">Software Dev</button>
+          <button class="chip" data-cat="AI & Data">AI & Data</button>
+          <button class="chip" data-cat="Healthcare">Healthcare</button>
+          <button class="chip" data-cat="Design & Creative">Design & Creative</button>
+          <button class="chip" data-cat="Game Dev">Game Dev</button>
+          <button class="chip" data-cat="Languages">Languages</button>
+          <button class="chip" data-cat="Education">Education</button>
+          <button class="chip" data-cat="Operations">Operations</button>
         </div>
       </div>
 
@@ -421,7 +435,7 @@
         <p class="results-count">Showing <strong id="showingCount">0</strong> of <strong id="ofCount">0</strong> opportunities</p>
         <select class="sort-select" id="sortSelect">
           <option value="default">Sort: Featured First</option>
-          <option value="pay-high">Pay: High to Low</option>
+          <option value="referral-high">Referral: High to Low</option>
           <option value="newest">Newest First</option>
           <option value="alpha">A–Z</option>
         </select>
@@ -451,8 +465,8 @@
   <!-- CTA BAND -->
   <section class="cta-band">
     <div class="container">
-      <h2>Ready to Automate Your <em>AI Business</em>?</h2>
-      <p>Let Vessellax build the systems that run behind the scenes — so you can focus on teaching.</p>
+      <h2>Automate Your <em>Referral Business</em>?</h2>
+      <p>Let Vessellax build the systems that run behind the scenes — so you can focus on earning.</p>
       <div class="cta-band-actions">
         <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary">Book a Free Strategy Call</a>
         <a href="services.html" class="btn btn-outline-white">Explore Our Services</a>
@@ -524,163 +538,90 @@
     // Add your real affiliate links here later by following the
     // same object structure. Each entry becomes one card.
     // ─────────────────────────────────────────────────────────────
+    const MICRO1_LINK = "https://micro1.ai/";
     const OPPORTUNITIES = [
-      {
-        id: 1,
-        featured: true,
-        title: "AI Course Instructor — Prompt Engineering",
-        platform: "Udemy",
-        category: "Online Courses",
-        badgeClass: "badge-courses",
-        desc: "Create and publish a comprehensive prompt engineering course for beginners and intermediate learners. Full revenue share on every sale.",
-        tags: ["Prompt Engineering", "Beginner-Friendly", "Revenue Share"],
-        pay: "$2k–$8k/mo",
-        meta: "Remote · Flexible Hours",
-        link: "#"
-      },
-      {
-        id: 2,
-        featured: true,
-        title: "AI Literacy Corporate Trainer",
-        platform: "Coursera for Business",
-        category: "Corporate Training",
-        badgeClass: "badge-corporate",
-        desc: "Lead live AI literacy workshops for Fortune 500 teams. Topics include ChatGPT, automation, and responsible AI use.",
-        tags: ["Live Training", "Enterprise", "Leadership"],
-        pay: "$150–$300/hr",
-        meta: "Remote · Contract",
-        link: "#"
-      },
-      {
-        id: 3,
-        featured: false,
-        title: "1-on-1 AI Coach — Entrepreneurs",
-        platform: "Coach.me",
-        category: "1-on-1 Coaching",
-        badgeClass: "badge-coaching",
-        desc: "Coach small business owners and entrepreneurs on integrating AI tools into daily operations. Set your own schedule and rates.",
-        tags: ["Business Owners", "Flexible", "High Demand"],
-        pay: "$75–$200/hr",
-        meta: "Remote · Self-Paced",
-        link: "#"
-      },
-      {
-        id: 4,
-        featured: false,
-        title: "AI YouTube Content Creator",
-        platform: "Independent / Sponsorships",
-        category: "Content Creation",
-        badgeClass: "badge-content",
-        desc: "Produce educational AI content for YouTube. Earn through AdSense, sponsorships, and affiliate partnerships with AI tool companies.",
-        tags: ["YouTube", "Ad Revenue", "Sponsorship"],
-        pay: "Variable",
-        meta: "Remote · Creative",
-        link: "#"
-      },
-      {
-        id: 5,
-        featured: false,
-        title: "AI Bootcamp Lead Instructor",
-        platform: "General Assembly",
-        category: "Bootcamps",
-        badgeClass: "badge-bootcamp",
-        desc: "Lead 12-week AI and machine learning bootcamp cohorts. Provide curriculum instruction, code reviews, and career mentoring.",
-        tags: ["Full-Time", "Cohort-Based", "Career Mentoring"],
-        pay: "$80k–$110k/yr",
-        meta: "Remote or On-Site",
-        link: "#"
-      },
-      {
-        id: 6,
-        featured: false,
-        title: "AI Curriculum Designer",
-        platform: "EdTech Startup",
-        category: "Curriculum Design",
-        badgeClass: "badge-curriculum",
-        desc: "Design end-to-end AI education programs from beginner to advanced. Work with a product team to build course content, assessments, and hands-on projects.",
-        tags: ["Instructional Design", "Full-Time", "EdTech"],
-        pay: "$70k–$95k/yr",
-        meta: "Remote · Full-Time",
-        link: "#"
-      },
-      {
-        id: 7,
-        featured: false,
-        title: "Community AI Educator — Discord",
-        platform: "AI Community (Discord)",
-        category: "Community Teaching",
-        badgeClass: "badge-community",
-        desc: "Host weekly AMAs, run educational threads, and support a 10k+ member AI community. Paid per session and eligible for tip revenue.",
-        tags: ["Community", "AMA", "Async Teaching"],
-        pay: "$30–$75/hr",
-        meta: "Remote · Part-Time",
-        link: "#"
-      },
-      {
-        id: 8,
-        featured: false,
-        title: "AI Research Explainer (Newsletter)",
-        platform: "Substack / The Rundown AI",
-        category: "Research",
-        badgeClass: "badge-research",
-        desc: "Translate cutting-edge AI research papers into clear, accessible newsletter content for a 200k+ subscriber audience.",
-        tags: ["Writing", "Research", "Newsletter"],
-        pay: "$500–$2k/article",
-        meta: "Remote · Freelance",
-        link: "#"
-      },
-      {
-        id: 9,
-        featured: false,
-        title: "ChatGPT for Business — Online Course Creator",
-        platform: "Skillshare",
-        category: "Online Courses",
-        badgeClass: "badge-courses",
-        desc: "Build a practical ChatGPT course focused on real business use cases — drafting, summarizing, customer support, and workflow automation.",
-        tags: ["ChatGPT", "Business", "Skillshare"],
-        pay: "Royalty-Based",
-        meta: "Remote · Async",
-        link: "#"
-      },
-      {
-        id: 10,
-        featured: false,
-        title: "AI Tools Coach — Freelancers & Creators",
-        platform: "Maven",
-        category: "1-on-1 Coaching",
-        badgeClass: "badge-coaching",
-        desc: "Run cohort-based live courses teaching freelancers how to use AI to 10x their output. Maven handles payments and marketing.",
-        tags: ["Freelancers", "Cohort", "Live"],
-        pay: "$3k–$15k/cohort",
-        meta: "Remote · Cohort-Based",
-        link: "#"
-      },
-      {
-        id: 11,
-        featured: false,
-        title: "AI TikTok / Reels Educator",
-        platform: "TikTok Creator Fund",
-        category: "Content Creation",
-        badgeClass: "badge-content",
-        desc: "Grow an audience teaching AI tips, tools, and tutorials in short-form video. Monetize via Creator Fund, brand deals, and link-in-bio products.",
-        tags: ["Short-Form Video", "TikTok", "Brand Deals"],
-        pay: "Variable",
-        meta: "Remote · Creative",
-        link: "#"
-      },
-      {
-        id: 12,
-        featured: false,
-        title: "AI for Healthcare Professionals — Trainer",
-        platform: "Medical EdTech Platform",
-        category: "Corporate Training",
-        badgeClass: "badge-corporate",
-        desc: "Deliver specialized AI training for healthcare professionals. Topics include clinical decision support, AI documentation, and compliance.",
-        tags: ["Healthcare", "Specialized", "Compliance"],
-        pay: "$200–$400/hr",
-        meta: "Remote or On-Site · Contract",
-        link: "#"
-      }
+      // ── $3,000 REFERRAL ──────────────────────────────────────────
+      { id: 1,  featured: true,  referral: 3000, title: "Investment Banking Modeling Analyst", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Senior financial modeling role supporting M&A and capital markets transactions. Strong Excel/LBO modeling required. 200 openings globally.", tags: ["LBO Modeling", "M&A", "Excel", "200 Openings"], pay: "$100–$200/hr", openings: 200, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 2,  featured: true,  referral: 3000, title: "Private Equity Associate", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "PE deal execution and portfolio monitoring role for top-tier firms. Financial analysis, due diligence, and investor reporting.", tags: ["Private Equity", "Due Diligence", "Deal Flow", "100 Openings"], pay: "Competitive", openings: 100, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 3,  featured: true,  referral: 3000, title: "Transaction Structuring Expert", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Advise on complex deal structuring across debt, equity, and hybrid instruments. High-level advisory work for institutional clients.", tags: ["Deal Structuring", "Debt & Equity", "Advisory", "30 Openings"], pay: "$140–$240/hr", openings: 30, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 4,  featured: true,  referral: 3000, title: "Corporate Strategy Associate", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Support corporate clients with strategic planning, market entry analysis, and competitive benchmarking. 200 openings.", tags: ["Strategy", "Market Analysis", "Consulting", "200 Openings"], pay: "Competitive", openings: 200, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 5,  featured: true,  referral: 3000, title: "Investment Banking Analyst Expert", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Pitch books, financial models, and client advisory for IB transactions. Strong quantitative and presentation skills required.", tags: ["Pitch Books", "Financial Models", "IB"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 6,  featured: true,  referral: 3000, title: "Capital Markets & Sponsor Coverage Expert", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Coverage and origination across equity, debt, and structured products. Relationships with PE sponsors and corporates.", tags: ["Capital Markets", "Sponsors", "Debt Origination"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 7,  featured: true,  referral: 3000, title: "Growth Equity & Venture Financial Modeling Expert", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Build financial models for growth equity and venture-stage companies. SaaS metrics, cap table modeling, and scenario analysis.", tags: ["Growth Equity", "Venture", "SaaS Metrics", "Cap Table"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+
+      // ── $2,000 REFERRAL ──────────────────────────────────────────
+      { id: 8,  featured: false, referral: 2000, title: "Digital Content Editor (Olive)", platform: "micro1 — Olive", category: "Design & Creative", badgeClass: "badge-creative", desc: "Edit and produce digital content for Olive platform. Experience with video, graphics, and editorial workflows.", tags: ["Content Editing", "Digital Media", "Editorial"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 9,  featured: false, referral: 2000, title: "AutoCAD Expert", platform: "micro1", category: "Design & Creative", badgeClass: "badge-creative", desc: "Create precise 2D/3D technical drawings for engineering and architecture projects using AutoCAD. Strong drafting fundamentals required.", tags: ["AutoCAD", "Technical Drawing", "Engineering", "Architecture"], pay: "$30–$115/hr", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 10, featured: false, referral: 2000, title: "Autodesk Inventor Expert", platform: "micro1", category: "Design & Creative", badgeClass: "badge-creative", desc: "Mechanical design and parametric modeling using Autodesk Inventor. Support product development teams with 3D CAD deliverables.", tags: ["Autodesk Inventor", "Mechanical Design", "3D CAD", "Parametric Modeling"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 11, featured: false, referral: 2000, title: "Godot Game Engine Expert", platform: "micro1", category: "Game Dev", badgeClass: "badge-gamedev", desc: "Design and ship games using Godot Engine (GDScript or C#). Indie and studio projects across mobile and desktop platforms.", tags: ["Godot", "GDScript", "C#", "Game Dev"], pay: "$50–$120/hr", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+
+      // ── $1,500 REFERRAL ──────────────────────────────────────────
+      { id: 12, featured: false, referral: 1500, title: "Backend Developer (Node.js / Nest.js / AWS)", platform: "micro1", category: "Software Dev", badgeClass: "badge-dev", desc: "Build scalable backend services with Node.js, Nest.js, and AWS infrastructure. REST/GraphQL API design and cloud deployment.", tags: ["Node.js", "Nest.js", "AWS", "API Design"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 13, featured: false, referral: 1500, title: "Fullstack Developer (US)", platform: "micro1", category: "Software Dev", badgeClass: "badge-dev", desc: "End-to-end web application development for US-based clients. React/Next.js frontend with Node.js or Python backend.", tags: ["React", "Next.js", "Node.js", "US Only"], pay: "$60–$80/hr", openings: null, meta: "Remote · US Only", link: MICRO1_LINK },
+      { id: 14, featured: false, referral: 1500, title: "AI / ML Engineer (US)", platform: "micro1", category: "AI & Data", badgeClass: "badge-ai", desc: "Build and deploy machine learning models for production use cases. LLM fine-tuning, RAG pipelines, and MLOps experience needed.", tags: ["AI/ML", "LLMs", "RAG", "MLOps", "US Only"], pay: "$70–$200/hr", openings: null, meta: "Remote · US Only", link: MICRO1_LINK },
+
+      // ── $1,000 REFERRAL ──────────────────────────────────────────
+      { id: 15, featured: false, referral: 1000, title: "Video Editing Expert", platform: "micro1", category: "Design & Creative", badgeClass: "badge-creative", desc: "Professional video editing for brand content, marketing, and social media. Premiere Pro, DaVinci Resolve, or Final Cut experience.", tags: ["Video Editing", "Premiere Pro", "DaVinci Resolve", "Motion Graphics"], pay: "Competitive", openings: null, meta: "Remote · Freelance", link: MICRO1_LINK },
+      { id: 16, featured: false, referral: 1000, title: "Audio Production Expert", platform: "micro1", category: "Design & Creative", badgeClass: "badge-creative", desc: "Produce, mix, and master audio for podcasts, music, and brand content. DAW proficiency and sound design skills required.", tags: ["Audio Production", "Mixing", "Mastering", "Sound Design"], pay: "Competitive", openings: null, meta: "Remote · Freelance", link: MICRO1_LINK },
+      { id: 17, featured: false, referral: 1000, title: "Graphic Design Expert", platform: "micro1", category: "Design & Creative", badgeClass: "badge-creative", desc: "Create visuals for brand identity, marketing collateral, and digital campaigns. Adobe Creative Suite mastery required.", tags: ["Graphic Design", "Adobe Suite", "Branding", "Digital"], pay: "Competitive", openings: null, meta: "Remote · Freelance", link: MICRO1_LINK },
+      { id: 18, featured: false, referral: 1000, title: "FreeCAD Expert (BIM)", platform: "micro1", category: "Design & Creative", badgeClass: "badge-creative", desc: "Building information modeling with FreeCAD for architecture and construction projects. Experience with BIM workflows and open-source tools.", tags: ["FreeCAD", "BIM", "Architecture", "Open Source"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 19, featured: false, referral: 1000, title: "LibreCAD Expert", platform: "micro1", category: "Design & Creative", badgeClass: "badge-creative", desc: "Technical 2D drafting and design using LibreCAD for engineering and manufacturing clients.", tags: ["LibreCAD", "2D Drafting", "Engineering", "Manufacturing"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 20, featured: false, referral: 1000, title: "Bilingual Medical Expert", platform: "micro1", category: "Healthcare", badgeClass: "badge-health", desc: "Medical expertise with bilingual fluency required. Clinical documentation, translation, and patient communication support.", tags: ["Medical", "Bilingual", "Clinical", "Translation"], pay: "$120–$188/hr", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 21, featured: false, referral: 1000, title: "Member of Technical Staff (Research Lab)", platform: "micro1", category: "AI & Data", badgeClass: "badge-ai", desc: "Research engineering role at an applied AI or frontier lab. Contribute to model development, evaluation, and research infrastructure.", tags: ["Research", "AI Lab", "ML Engineering", "Applied AI"], pay: "$100–$130/hr", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 22, featured: false, referral: 1000, title: "DevOps Engineer", platform: "micro1", category: "Software Dev", badgeClass: "badge-dev", desc: "Infrastructure, CI/CD, and cloud platform engineering. Kubernetes, Terraform, and GitOps experience highly valued.", tags: ["DevOps", "Kubernetes", "Terraform", "CI/CD", "Cloud"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+
+      // ── $750 REFERRAL ────────────────────────────────────────────
+      { id: 23, featured: false, referral: 750, title: "Human Data Manager", platform: "micro1", category: "AI & Data", badgeClass: "badge-ai", desc: "Manage data annotation, labeling pipelines, and quality assurance for AI training datasets. Team leadership experience a plus.", tags: ["Data Annotation", "QA", "Pipeline Management", "AI Training Data"], pay: "$30–$75/hr", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+
+      // ── $500 REFERRAL ────────────────────────────────────────────
+      { id: 24, featured: false, referral: 500, title: "Personal Finance Advisor / CFP®", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Provide personal financial planning, investment advice, and retirement planning. CFP® certification preferred.", tags: ["CFP", "Financial Planning", "Wealth Management", "Retirement"], pay: "$80–$110/hr", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 25, featured: false, referral: 500, title: "Tax Compliance Specialist", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Corporate and individual tax compliance, filings, and advisory. CPA or equivalent qualification required.", tags: ["Tax Compliance", "CPA", "Corporate Tax", "Advisory"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 26, featured: false, referral: 500, title: "Tax Agent", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Tax preparation, filing, and client representation across jurisdictions. 80 openings available for licensed tax professionals.", tags: ["Tax Preparation", "Tax Filing", "Licensed Agent", "80 Openings"], pay: "Competitive", openings: 80, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 27, featured: false, referral: 500, title: "Talent Operations Assistant", platform: "micro1", category: "Operations", badgeClass: "badge-ops", desc: "Support talent acquisition workflows, candidate tracking, and HR operations. Strong organizational and communication skills required.", tags: ["Talent Ops", "Recruiting", "HR Operations", "Coordination"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+
+      // ── $300 REFERRAL ────────────────────────────────────────────
+      { id: 28, featured: false, referral: 300, title: "Blender Expert (Bonsai)", platform: "micro1", category: "Design & Creative", badgeClass: "badge-creative", desc: "3D modeling, rendering, and animation using Blender. Projects in product visualization, architecture, and media production.", tags: ["Blender", "3D Modeling", "Rendering", "Animation"], pay: "Competitive", openings: null, meta: "Remote · Freelance", link: MICRO1_LINK },
+      { id: 29, featured: false, referral: 300, title: "Rhino3D Expert", platform: "micro1", category: "Design & Creative", badgeClass: "badge-creative", desc: "3D modeling and computational design using Rhinoceros 3D. Architecture, product design, and industrial applications.", tags: ["Rhino3D", "Grasshopper", "Industrial Design", "Architecture"], pay: "Competitive", openings: null, meta: "Remote · Freelance", link: MICRO1_LINK },
+      { id: 30, featured: false, referral: 300, title: "MonoGame Developer", platform: "micro1", category: "Game Dev", badgeClass: "badge-gamedev", desc: "Build cross-platform games and interactive applications using MonoGame framework with C#.", tags: ["MonoGame", "C#", "Cross-Platform", "Game Dev"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 31, featured: false, referral: 300, title: "Java / libGDX Game Developer", platform: "micro1", category: "Game Dev", badgeClass: "badge-gamedev", desc: "Develop 2D/3D games using Java and the libGDX framework for desktop, mobile, and browser targets.", tags: ["Java", "libGDX", "Game Dev", "Mobile", "Desktop"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 32, featured: false, referral: 300, title: "2D Game Developer", platform: "micro1", category: "Game Dev", badgeClass: "badge-gamedev", desc: "Design and build 2D games across Unity, Godot, or custom engines. Sprite animation, physics, and level design experience.", tags: ["2D Games", "Unity", "Game Design", "Animation"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 33, featured: false, referral: 300, title: "3D Game Developer", platform: "micro1", category: "Game Dev", badgeClass: "badge-gamedev", desc: "3D game development using Unreal Engine or Unity. Proficient in 3D art pipelines, shaders, and performance optimization.", tags: ["3D Games", "Unreal", "Unity", "Shaders"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 34, featured: false, referral: 300, title: "Medical Sonographer", platform: "micro1", category: "Healthcare", badgeClass: "badge-health", desc: "Perform diagnostic ultrasound imaging for clinical settings. ARDMS certification and hospital/clinic experience preferred.", tags: ["Ultrasound", "Diagnostic Imaging", "ARDMS", "Clinical"], pay: "Competitive", openings: null, meta: "Flexible · Contract", link: MICRO1_LINK },
+      { id: 35, featured: false, referral: 300, title: "Psychology PhD", platform: "micro1", category: "Healthcare", badgeClass: "badge-health", desc: "Apply psychological expertise to research, assessment, or behavioral AI projects. Clinical, cognitive, or organizational specializations welcome.", tags: ["Psychology", "PhD", "Research", "Behavioral Science"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 36, featured: false, referral: 300, title: "Occupational Therapist", platform: "micro1", category: "Healthcare", badgeClass: "badge-health", desc: "Provide occupational therapy assessments and interventions. Licensed OT with experience in clinical or telehealth settings.", tags: ["OT", "Occupational Therapy", "Telehealth", "Clinical"], pay: "$82–$287/hr", openings: null, meta: "Remote/Hybrid · Contract", link: MICRO1_LINK },
+      { id: 37, featured: false, referral: 300, title: "Statistical Consultant", platform: "micro1", category: "AI & Data", badgeClass: "badge-ai", desc: "Provide statistical analysis, study design, and data interpretation for research teams and enterprises.", tags: ["Statistics", "Data Analysis", "Research Design", "Consulting"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 38, featured: false, referral: 300, title: "Project Manager", platform: "micro1", category: "Operations", badgeClass: "badge-ops", desc: "Lead cross-functional projects with Agile/Scrum methodology. PMP or equivalent experience preferred.", tags: ["Project Management", "Agile", "Scrum", "PMP"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 39, featured: false, referral: 300, title: "Career & Technology Education Teacher", platform: "micro1", category: "Education", badgeClass: "badge-education", desc: "Teach career and technology education curriculum to students. K-12 or vocational teaching credential preferred.", tags: ["CTE", "Teaching", "K-12", "Technology Education"], pay: "Competitive", openings: null, meta: "Flexible · Contract", link: MICRO1_LINK },
+
+      // ── $100 REFERRAL ────────────────────────────────────────────
+      { id: 40, featured: false, referral: 100, title: "Attorney", platform: "micro1", category: "Operations", badgeClass: "badge-ops", desc: "Legal expertise across contracts, IP, employment, or corporate law. Bar admission required. Remote advisory and consulting roles.", tags: ["Law", "Contracts", "IP", "Corporate Law", "Bar Admitted"], pay: "$100–$250/hr", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 41, featured: false, referral: 100, title: "AI Model Evaluator (LLMs)", platform: "micro1", category: "AI & Data", badgeClass: "badge-ai", desc: "Evaluate and red-team large language models for quality, safety, and alignment. Strong reasoning and domain knowledge required.", tags: ["LLM Evaluation", "Red Teaming", "AI Safety", "Alignment"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 42, featured: false, referral: 100, title: "Applied AI Engineer", platform: "micro1", category: "AI & Data", badgeClass: "badge-ai", desc: "Ship AI-powered products with modern APIs (OpenAI, Anthropic, etc.). Prompt engineering, RAG, and agent frameworks experience.", tags: ["Applied AI", "Prompt Engineering", "RAG", "AI Agents"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 43, featured: false, referral: 100, title: "Mandarin Language Expert", platform: "micro1", category: "Languages", badgeClass: "badge-language", desc: "Native or near-native Mandarin speaker for AI data tasks: translation, annotation, and language model evaluation.", tags: ["Mandarin", "Translation", "Annotation", "200 Openings"], pay: "Competitive", openings: 200, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 44, featured: false, referral: 100, title: "Russian Language Expert", platform: "micro1", category: "Languages", badgeClass: "badge-language", desc: "Native or fluent Russian speaker for AI training data, translation, and language model quality assurance.", tags: ["Russian", "Translation", "AI Data", "QA"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 45, featured: false, referral: 100, title: "Hedge Fund / Asset Management Expert", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Quantitative and fundamental expertise for hedge fund or asset management AI projects. 200 openings available.", tags: ["Hedge Fund", "Asset Management", "Quantitative", "200 Openings"], pay: "Competitive", openings: 200, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 46, featured: false, referral: 100, title: "Portfolio Allocation Expert", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Develop and optimize portfolio allocation strategies for institutional or retail investment platforms.", tags: ["Portfolio Management", "Asset Allocation", "Investment Strategy"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 47, featured: false, referral: 100, title: "Insurance Capital Expert", platform: "micro1", category: "Finance", badgeClass: "badge-finance", desc: "Insurance capital modeling, reserving, and regulatory compliance expertise. Actuarial background preferred.", tags: ["Insurance", "Capital Modeling", "Actuarial", "Compliance"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 48, featured: false, referral: 100, title: "PHP Developer", platform: "micro1", category: "Software Dev", badgeClass: "badge-dev", desc: "Backend PHP development for web applications. Laravel or Symfony experience preferred.", tags: ["PHP", "Laravel", "Symfony", "Backend"], pay: "$30–$60/hr", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 49, featured: false, referral: 100, title: "Golang Developer", platform: "micro1", category: "Software Dev", badgeClass: "badge-dev", desc: "Build high-performance backend services and APIs in Go. Microservices and distributed systems experience valued.", tags: ["Golang", "Go", "Microservices", "Backend"], pay: "$30–$60/hr", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 50, featured: false, referral: 100, title: "Rust Developer", platform: "micro1", category: "Software Dev", badgeClass: "badge-dev", desc: "Systems programming and performance-critical application development in Rust. Memory safety and concurrency focus.", tags: ["Rust", "Systems Programming", "WebAssembly", "Performance"], pay: "$30–$60/hr", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 51, featured: false, referral: 100, title: "C++ Developer", platform: "micro1", category: "Software Dev", badgeClass: "badge-dev", desc: "C++ engineering for performance-critical applications, game engines, or embedded systems.", tags: ["C++", "Systems", "Game Engine", "Embedded"], pay: "$30–$60/hr", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 52, featured: false, referral: 100, title: "Creative Writer", platform: "micro1", category: "Education", badgeClass: "badge-education", desc: "Write compelling narratives, scripts, and creative content for AI training datasets and media projects.", tags: ["Creative Writing", "Copywriting", "AI Training Data", "Storytelling"], pay: "Competitive", openings: null, meta: "Remote · Freelance", link: MICRO1_LINK },
+      { id: 53, featured: false, referral: 100, title: "Rubrics Expert", platform: "micro1", category: "Education", badgeClass: "badge-education", desc: "Design evaluation rubrics and scoring frameworks for AI model outputs and educational assessments.", tags: ["Rubrics", "Assessment Design", "AI Evaluation", "Education"], pay: "Competitive", openings: null, meta: "Remote · Contract", link: MICRO1_LINK },
+      { id: 54, featured: false, referral: 100, title: "Medical Doctor", platform: "micro1", category: "Healthcare", badgeClass: "badge-health", desc: "MD required for clinical AI evaluation, medical content review, and health data annotation projects.", tags: ["MD", "Clinical Review", "Health AI", "Medical Annotation"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 55, featured: false, referral: 100, title: "Energy Engineer AI Evaluator", platform: "micro1", category: "AI & Data", badgeClass: "badge-ai", desc: "Apply energy engineering expertise to evaluate AI models for accuracy and domain knowledge in power, renewables, or oil & gas.", tags: ["Energy Engineering", "AI Evaluation", "Renewables", "Oil & Gas"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 56, featured: false, referral: 100, title: "Dutch Language Expert", platform: "micro1", category: "Languages", badgeClass: "badge-language", desc: "Native or near-native Dutch speaker for AI data annotation, translation, and language model evaluation.", tags: ["Dutch", "Translation", "Annotation", "AI Data"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 57, featured: false, referral: 100, title: "Norwegian Language Expert", platform: "micro1", category: "Languages", badgeClass: "badge-language", desc: "Native or fluent Norwegian speaker for AI training, NLP tasks, and quality assurance on language models.", tags: ["Norwegian", "NLP", "AI Training", "QA"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 58, featured: false, referral: 100, title: "Swedish Language Expert", platform: "micro1", category: "Languages", badgeClass: "badge-language", desc: "Native Swedish speaker for AI data labeling, translation, and model fine-tuning tasks.", tags: ["Swedish", "AI Data", "Translation", "Fine-Tuning"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 59, featured: false, referral: 100, title: "Hebrew Language Expert", platform: "micro1", category: "Languages", badgeClass: "badge-language", desc: "Native Hebrew speaker for AI annotation, translation, and language model quality assurance.", tags: ["Hebrew", "Translation", "Annotation", "AI QA"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 60, featured: false, referral: 100, title: "Finnish Language Expert", platform: "micro1", category: "Languages", badgeClass: "badge-language", desc: "Native Finnish speaker for AI data tasks including translation, annotation, and NLP evaluation.", tags: ["Finnish", "Translation", "NLP", "AI Data"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 61, featured: false, referral: 100, title: "Hindi Language Expert", platform: "micro1", category: "Languages", badgeClass: "badge-language", desc: "Native or fluent Hindi speaker for AI training data, translation, and language evaluation tasks.", tags: ["Hindi", "Translation", "AI Training", "Annotation"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 62, featured: false, referral: 100, title: "Polish Language Expert", platform: "micro1", category: "Languages", badgeClass: "badge-language", desc: "Native Polish speaker for NLP datasets, translation, and language model evaluation.", tags: ["Polish", "NLP", "Translation", "AI Data"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 63, featured: false, referral: 100, title: "Bengali Language Expert", platform: "micro1", category: "Languages", badgeClass: "badge-language", desc: "Native Bengali speaker for AI data annotation, translation, and quality assurance tasks.", tags: ["Bengali", "Translation", "Annotation", "AI QA"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+      { id: 64, featured: false, referral: 100, title: "Italian Language Expert", platform: "micro1", category: "Languages", badgeClass: "badge-language", desc: "Native Italian speaker for AI training data, content review, and language model evaluation.", tags: ["Italian", "AI Training", "Content Review", "NLP"], pay: "Competitive", openings: null, meta: "Remote · Flexible", link: MICRO1_LINK },
+
+      // ── $25 REFERRAL ─────────────────────────────────────────────
+      { id: 65, featured: false, referral: 25, title: "Robotics Data Generalist", platform: "micro1", category: "AI & Data", badgeClass: "badge-ai", desc: "Collect, label, and annotate robotics sensor data for AI training. Physical or remote data generation tasks.", tags: ["Robotics", "Data Collection", "Annotation", "Sensor Data"], pay: "$15–$45/hr", openings: null, meta: "Remote / On-Site · Flexible", link: MICRO1_LINK }
     ];
 
     // ─────────────────────────────────────────────────────────────
@@ -709,26 +650,30 @@
       }
       if (currentSort === 'alpha') list.sort((a,b) => a.title.localeCompare(b.title));
       else if (currentSort === 'newest') list.sort((a,b) => b.id - a.id);
-      else list.sort((a,b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+      else if (currentSort === 'referral-high') list.sort((a,b) => b.referral - a.referral);
+      else list.sort((a,b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || b.referral - a.referral);
       return list;
     }
 
     function buildCard(opp) {
+      const referralStr = opp.referral >= 1000
+        ? `$${(opp.referral/1000).toFixed(opp.referral % 1000 === 0 ? 0 : 1)}k referral`
+        : `$${opp.referral} referral`;
       return `
         <div class="opp-card fade-up ${opp.featured ? 'featured' : ''}" data-cat="${opp.category}">
-          ${opp.featured ? '<span class="featured-badge">Featured</span>' : ''}
+          ${opp.featured ? '<span class="featured-badge">Top Bonus</span>' : ''}
           <div class="opp-card-top">
             <span class="opp-category-badge ${opp.badgeClass}">${opp.category}</span>
-            <span class="opp-pay">${opp.pay}</span>
+            <span class="opp-referral-badge">${referralStr}</span>
           </div>
           <h3 class="opp-title">${opp.title}</h3>
-          <p class="opp-platform">${opp.platform}</p>
+          <p class="opp-platform">${opp.platform}${opp.openings ? ` · ${opp.openings} openings` : ''}</p>
           <p class="opp-desc">${opp.desc}</p>
           <div class="opp-tags">${opp.tags.map(t => `<span class="opp-tag">${t}</span>`).join('')}</div>
           <div class="opp-footer">
-            <span class="opp-meta">${opp.meta}</span>
+            <span class="opp-meta">${opp.pay !== 'Competitive' ? opp.pay + ' · ' : ''}${opp.meta}</span>
             <a href="${opp.link}" class="opp-link" target="_blank" rel="noopener noreferrer">
-              View Opportunity
+              Refer Now
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
@@ -867,25 +812,25 @@
     const origRender = render;
 
     // ─────────────────────────────────────────────────────────────
-    // HOW TO ADD MORE OPPORTUNITIES (instructions for later)
+    // HOW TO ADD MORE OPPORTUNITIES
     // ─────────────────────────────────────────────────────────────
-    // Each opportunity object in the OPPORTUNITIES array above has:
-    //   id       — unique number (increment by 1 for each new entry)
-    //   featured — true/false (featured cards appear first and have red accent)
-    //   title    — job/opportunity title
-    //   platform — company or platform name
-    //   category — must match one of the chip labels exactly:
-    //              "Online Courses" | "1-on-1 Coaching" | "Corporate Training"
-    //              "Content Creation" | "Bootcamps" | "Curriculum Design"
-    //              "Community Teaching" | "Research"
-    //   badgeClass — badge color:
-    //              badge-courses | badge-coaching | badge-corporate | badge-content
-    //              badge-bootcamp | badge-curriculum | badge-community | badge-research
+    // Each object in OPPORTUNITIES has:
+    //   id       — unique number
+    //   featured — true/false
+    //   referral — referral bonus in USD (number)
+    //   title    — role title
+    //   platform — "micro1" or specific platform
+    //   category — must match a chip label:
+    //              "Finance" | "Software Dev" | "AI & Data" | "Healthcare"
+    //              "Design & Creative" | "Game Dev" | "Languages" | "Education" | "Operations"
+    //   badgeClass — badge-finance | badge-dev | badge-ai | badge-health |
+    //                badge-creative | badge-gamedev | badge-language | badge-education | badge-ops
     //   desc     — short description (1-2 sentences)
-    //   tags     — array of short keyword strings e.g. ["Remote","ChatGPT"]
-    //   pay      — pay range string e.g. "$50-$100/hr" or "Revenue Share"
-    //   meta     — location/schedule info e.g. "Remote · Flexible"
-    //   link     — the affiliate/referral URL (replace "#" with real URL)
+    //   tags     — array of strings
+    //   pay      — pay rate string or "Competitive"
+    //   openings — number or null
+    //   meta     — location/schedule info
+    //   link     — referral URL (update MICRO1_LINK at top)
   </script>
 </body>
 </html>
