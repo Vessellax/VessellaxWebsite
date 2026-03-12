@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Opportunities — Vessellax</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #2c3e50; --navy-dark: #1a252f; --navy-light: #3d5166;
+      --red: #e63329; --red-dark: #c0271e; --red-light: #ff4a40;
+      --white: #ffffff; --off-white: #f8f8f8;
+      --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
+      --gray-400: #9ca3af; --gray-600: #4b5563; --gray-700: #374151;
+      --gray-800: #1f2937; --text-main: #1a1a2e; --text-muted: #6b7280;
+      --radius-sm: 6px; --radius-md: 12px; --radius-lg: 20px; --radius-xl: 32px;
+      --shadow-card: 0 2px 8px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 24px rgba(0,0,0,0.1), 0 24px 64px rgba(0,0,0,0.12);
+      --max-w: 1120px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-main); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px;
+      cursor: pointer; text-decoration: none; border: none; outline: none;
+      transition: transform 0.18s cubic-bezier(.22,1,.36,1), box-shadow 0.18s cubic-bezier(.22,1,.36,1), background 0.18s ease;
+    }
+    .btn:active { transform: scale(0.97) !important; }
+    .btn-primary {
+      background: var(--red); color: var(--white); padding: 13px 26px; border-radius: 100px;
+      box-shadow: 0 2px 8px rgba(230,51,41,0.25), 0 4px 20px rgba(230,51,41,0.15);
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(230,51,41,0.35), 0 8px 32px rgba(230,51,41,0.2); }
+    .btn-outline {
+      background: transparent; color: var(--navy); padding: 12px 24px; border-radius: 100px;
+      border: 1.5px solid var(--gray-200);
+    }
+    .btn-outline:hover { border-color: var(--navy); transform: translateY(-1px); box-shadow: 0 2px 12px rgba(44,62,80,0.1); }
+    .btn-outline-white {
+      background: transparent; color: var(--white); padding: 13px 26px; border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.35);
+    }
+    .btn-outline-white:hover { border-color: rgba(255,255,255,0.7); transform: translateY(-1px); background: rgba(255,255,255,0.08); }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: background 0.2s ease, box-shadow 0.2s ease; }
+    nav.scrolled { background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--gray-200); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 32px; }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--gray-700); text-decoration: none; padding: 8px 14px; border-radius: 8px; transition: color 0.15s, background 0.15s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-main); background: var(--gray-100); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; border-radius: 8px; flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--navy); border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; bottom: 0; background: var(--white); z-index: 99; padding: 24px; flex-direction: column; gap: 8px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 18px; font-weight: 600; color: var(--text-main); text-decoration: none; padding: 14px 0; border-bottom: 1px solid var(--gray-100); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 140px 0 80px;
+      background: linear-gradient(160deg, #f0f4f8 0%, #ffffff 50%, #fff5f5 100%);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; top: -200px; right: -200px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(230,51,41,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero::after {
+      content: ''; position: absolute; bottom: -80px; left: -80px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(44,62,80,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 16px;
+    }
+    .page-hero .eyebrow::before, .page-hero .eyebrow::after {
+      content: ''; display: block; width: 24px; height: 1.5px; background: var(--red); opacity: 0.5;
+    }
+    .page-hero h1 {
+      font-family: 'Nunito', sans-serif; font-size: clamp(40px, 5vw, 64px);
+      font-weight: 800; line-height: 1.08; letter-spacing: -0.03em;
+      color: var(--text-main); margin-bottom: 20px;
+    }
+    .page-hero h1 em { font-style: normal; color: var(--red); }
+    .page-hero p {
+      font-size: 18px; color: var(--text-muted); line-height: 1.7;
+      max-width: 540px; margin: 0 auto 32px;
+    }
+    .hero-stats {
+      display: flex; align-items: center; justify-content: center; gap: 40px;
+      flex-wrap: wrap; padding-top: 8px;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat-value {
+      font-family: 'Nunito', sans-serif; font-size: 28px; font-weight: 800;
+      color: var(--text-main); letter-spacing: -0.03em; line-height: 1;
+    }
+    .hero-stat-value em { font-style: normal; color: var(--red); }
+    .hero-stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .hero-stat-divider { width: 1px; height: 40px; background: var(--gray-200); }
+
+    /* ── FILTER SECTION ── */
+    .filter-section { padding: 40px 0 0; background: var(--white); }
+    .filter-bar {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      padding-bottom: 32px; border-bottom: 1px solid var(--gray-100);
+    }
+    .search-wrap {
+      flex: 1; min-width: 240px; position: relative;
+    }
+    .search-wrap svg {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      width: 16px; height: 16px; fill: var(--gray-400); pointer-events: none;
+    }
+    .search-input {
+      width: 100%; padding: 11px 16px 11px 40px;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px;
+      border: 1.5px solid var(--gray-200); border-radius: 10px;
+      background: var(--gray-50); color: var(--text-main); outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .search-input::placeholder { color: var(--gray-400); }
+    .search-input:focus { border-color: var(--navy); background: var(--white); box-shadow: 0 0 0 3px rgba(44,62,80,0.07); }
+
+    .category-chips { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .chip {
+      padding: 7px 16px; border-radius: 100px; border: 1.5px solid var(--gray-200);
+      font-size: 13px; font-weight: 600; color: var(--gray-600);
+      background: var(--white); cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.15s;
+      user-select: none;
+    }
+    .chip:hover { border-color: var(--navy); color: var(--navy); transform: translateY(-1px); }
+    .chip.active { background: var(--navy); border-color: var(--navy); color: var(--white); }
+
+    .results-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 0 28px; flex-wrap: wrap; gap: 12px;
+    }
+    .results-count { font-size: 14px; color: var(--text-muted); }
+    .results-count strong { color: var(--text-main); font-weight: 700; }
+    .sort-select {
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 600;
+      color: var(--gray-700); background: var(--white); border: 1.5px solid var(--gray-200);
+      border-radius: 8px; padding: 7px 12px; cursor: pointer; outline: none;
+    }
+
+    /* ── OPPORTUNITY CARDS ── */
+    .opps-section { padding: 0 0 96px; }
+    .opps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+
+    .opp-card {
+      background: var(--white); border-radius: var(--radius-lg);
+      border: 1.5px solid var(--gray-200); padding: 24px;
+      display: flex; flex-direction: column; gap: 0;
+      transition: transform 0.2s cubic-bezier(.22,1,.36,1), box-shadow 0.2s cubic-bezier(.22,1,.36,1), border-color 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .opp-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--red-light));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.2s cubic-bezier(.22,1,.36,1);
+    }
+    .opp-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--gray-300); }
+    .opp-card:hover::before { transform: scaleX(1); }
+
+    .opp-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .opp-category-badge {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px;
+    }
+    /* Category color variants */
+    .badge-courses   { background: rgba(59,130,246,0.1); color: #2563eb; }
+    .badge-coaching  { background: rgba(16,185,129,0.1); color: #059669; }
+    .badge-corporate { background: rgba(139,92,246,0.1); color: #7c3aed; }
+    .badge-content   { background: rgba(245,158,11,0.1); color: #d97706; }
+    .badge-community { background: rgba(236,72,153,0.1); color: #be185d; }
+    .badge-bootcamp  { background: rgba(230,51,41,0.1);  color: var(--red); }
+    .badge-curriculum{ background: rgba(20,184,166,0.1); color: #0f766e; }
+    .badge-research  { background: rgba(99,102,241,0.1); color: #4338ca; }
+
+    .opp-pay {
+      font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800;
+      color: var(--text-main); white-space: nowrap;
+    }
+
+    .opp-title {
+      font-family: 'Nunito', sans-serif; font-size: 17px; font-weight: 800;
+      line-height: 1.25; letter-spacing: -0.01em; color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .opp-platform {
+      font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .opp-platform::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gray-400); flex-shrink: 0;
+    }
+    .opp-desc {
+      font-size: 14px; color: var(--text-muted); line-height: 1.6;
+      flex: 1; margin-bottom: 20px;
+    }
+    .opp-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+    .opp-tag {
+      font-size: 11px; font-weight: 600; color: var(--gray-600);
+      background: var(--gray-100); padding: 3px 9px; border-radius: 6px;
+    }
+    .opp-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 16px; border-top: 1px solid var(--gray-100);
+    }
+    .opp-meta { font-size: 12px; color: var(--gray-400); }
+    .opp-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 700; color: var(--red); text-decoration: none;
+      transition: gap 0.15s, color 0.15s;
+    }
+    .opp-link:hover { color: var(--red-dark); gap: 10px; }
+    .opp-link svg { width: 14px; height: 14px; fill: currentColor; transition: transform 0.15s; }
+    .opp-link:hover svg { transform: translateX(2px); }
+
+    /* Featured card */
+    .opp-card.featured { border-color: rgba(230,51,41,0.25); background: linear-gradient(135deg, rgba(230,51,41,0.02) 0%, var(--white) 100%); }
+    .opp-card.featured .opp-title { color: var(--text-main); }
+    .featured-badge {
+      position: absolute; top: 16px; right: 16px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--red); background: rgba(230,51,41,0.08);
+      padding: 3px 9px; border-radius: 100px; border: 1px solid rgba(230,51,41,0.15);
+    }
+
+    /* Empty state */
+    .empty-state {
+      grid-column: 1/-1; text-align: center; padding: 80px 0;
+      display: none;
+    }
+    .empty-state.visible { display: block; }
+    .empty-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-state h3 { font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 8px; }
+    .empty-state p { font-size: 15px; color: var(--text-muted); }
+
+    /* Load more */
+    .load-more-wrap { text-align: center; padding-top: 48px; }
+    .load-more-count { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+    .load-more-bar {
+      width: 200px; height: 4px; background: var(--gray-100); border-radius: 100px;
+      margin: 0 auto 20px; overflow: hidden;
+    }
+    .load-more-fill { height: 100%; background: linear-gradient(90deg, var(--red), var(--red-light)); border-radius: 100px; transition: width 0.3s ease; }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+      padding: 80px 0; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-band::before {
+      content: ''; position: absolute; top: -100px; right: -100px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(230,51,41,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-band h2 {
+      font-family: 'Nunito', sans-serif; font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;
+      color: var(--white); margin-bottom: 16px; position: relative;
+    }
+    .cta-band h2 em { font-style: normal; color: var(--red-light); }
+    .cta-band p {
+      font-size: 17px; color: rgba(255,255,255,0.65); line-height: 1.65;
+      max-width: 500px; margin: 0 auto 36px; position: relative;
+    }
+    .cta-band-actions { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; position: relative; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy-dark); padding: 72px 0 40px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .footer-brand img { height: 28px; margin-bottom: 16px; filter: brightness(0) invert(1); }
+    .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.65; max-width: 280px; margin-bottom: 24px; }
+    .footer-socials { display: flex; gap: 10px; }
+    .footer-social { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .footer-social:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+    .footer-social svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.7); }
+    .footer-col h5 { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col ul li a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.15s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 32px; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,0.4); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.15s; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ── FADE ANIMATION ── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s cubic-bezier(.22,1,.36,1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .opps-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-actions .btn-outline { display: none; }
+      .nav-hamburger { display: flex; }
+      .opps-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .hero-stat-divider { display: none; }
+      .filter-bar { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav id="mainNav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.png" alt="Vessellax" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#how">How It Works</a></li>
+        <li><a href="index.html#industries">Industries</a></li>
+        <li><a href="opportunities.html" class="active">Opportunities</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="about.html" class="btn btn-outline" style="font-size:14px;padding:9px 18px;">Learn More</a>
+        <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:14px;padding:9px 20px;">Book a Free Call</a>
+        <button class="nav-hamburger" id="hamburgerBtn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="index.html#how">How It Works</a>
+    <a href="index.html#industries">Industries</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:16px;justify-content:center;">Book a Free Call</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="eyebrow fade-up">AI Career Opportunities</div>
+      <h1 class="fade-up" style="transition-delay:0.07s;">Teach AI. <em>Shape the Future.</em></h1>
+      <p class="fade-up" style="transition-delay:0.14s;">
+        We've curated the best opportunities to teach, coach, and create in the AI space —
+        from online courses to corporate training. Find your next role below.
+      </p>
+      <div class="hero-stats fade-up" style="transition-delay:0.21s;">
+        <div class="hero-stat">
+          <div class="hero-stat-value" id="totalCount">0</div>
+          <div class="hero-stat-label">Opportunities Listed</div>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat-value-wrap hero-stat">
+          <div class="hero-stat-value">8</div>
+          <div class="hero-stat-label">Categories</div>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-value"><em>Remote</em></div>
+          <div class="hero-stat-label">Friendly Roles</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER + CARDS -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-bar">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+          <input class="search-input" type="text" id="searchInput" placeholder="Search by role, platform, or keyword…" />
+        </div>
+        <div class="category-chips" id="chipContainer">
+          <button class="chip active" data-cat="all">All</button>
+          <button class="chip" data-cat="Online Courses">Online Courses</button>
+          <button class="chip" data-cat="1-on-1 Coaching">1-on-1 Coaching</button>
+          <button class="chip" data-cat="Corporate Training">Corporate Training</button>
+          <button class="chip" data-cat="Content Creation">Content Creation</button>
+          <button class="chip" data-cat="Bootcamps">Bootcamps</button>
+          <button class="chip" data-cat="Curriculum Design">Curriculum Design</button>
+          <button class="chip" data-cat="Community Teaching">Community Teaching</button>
+          <button class="chip" data-cat="Research">Research</button>
+        </div>
+      </div>
+
+      <div class="results-bar">
+        <p class="results-count">Showing <strong id="showingCount">0</strong> of <strong id="ofCount">0</strong> opportunities</p>
+        <select class="sort-select" id="sortSelect">
+          <option value="default">Sort: Featured First</option>
+          <option value="pay-high">Pay: High to Low</option>
+          <option value="newest">Newest First</option>
+          <option value="alpha">A–Z</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section class="opps-section">
+    <div class="container">
+      <div class="opps-grid" id="oppsGrid">
+        <!-- Cards injected by JS -->
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">🔍</div>
+          <h3>No matches found</h3>
+          <p>Try adjusting your search or filter to find more opportunities.</p>
+        </div>
+      </div>
+
+      <div class="load-more-wrap" id="loadMoreWrap">
+        <p class="load-more-count" id="loadMoreCount"></p>
+        <div class="load-more-bar"><div class="load-more-fill" id="loadMoreFill"></div></div>
+        <button class="btn btn-outline" id="loadMoreBtn">Load More Opportunities</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Ready to Automate Your <em>AI Business</em>?</h2>
+      <p>Let Vessellax build the systems that run behind the scenes — so you can focus on teaching.</p>
+      <div class="cta-band-actions">
+        <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary">Book a Free Strategy Call</a>
+        <a href="services.html" class="btn btn-outline-white">Explore Our Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="Vessellax" />
+          <p>Vessellax builds custom AI automation systems for service businesses — so you can grow without growing your headcount.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg>
+            </a>
+            <a href="#" class="footer-social" aria-label="Twitter">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="footer-social" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3Z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="services.html">Lead Capture & Scheduling</a></li>
+            <li><a href="services.html">Customer Comms</a></li>
+            <li><a href="services.html">Operations & Reporting</a></li>
+            <li><a href="services.html">Custom AI Builds</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="index.html#industries">Industries</a></li>
+            <li><a href="index.html#how">How It Works</a></li>
+            <li><a href="opportunities.html">Opportunities</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Get Started</h5>
+          <ul>
+            <li><a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener">Book a Free Call</a></li>
+            <li><a href="contact.html">Get a Quote</a></li>
+            <li><a href="about.html">Our Process</a></li>
+            <li><a href="contact.html">Partner With Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Vessellax. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─────────────────────────────────────────────────────────────
+    // OPPORTUNITY DATA
+    // Add your real affiliate links here later by following the
+    // same object structure. Each entry becomes one card.
+    // ─────────────────────────────────────────────────────────────
+    const OPPORTUNITIES = [
+      {
+        id: 1,
+        featured: true,
+        title: "AI Course Instructor — Prompt Engineering",
+        platform: "Udemy",
+        category: "Online Courses",
+        badgeClass: "badge-courses",
+        desc: "Create and publish a comprehensive prompt engineering course for beginners and intermediate learners. Full revenue share on every sale.",
+        tags: ["Prompt Engineering", "Beginner-Friendly", "Revenue Share"],
+        pay: "$2k–$8k/mo",
+        meta: "Remote · Flexible Hours",
+        link: "#"
+      },
+      {
+        id: 2,
+        featured: true,
+        title: "AI Literacy Corporate Trainer",
+        platform: "Coursera for Business",
+        category: "Corporate Training",
+        badgeClass: "badge-corporate",
+        desc: "Lead live AI literacy workshops for Fortune 500 teams. Topics include ChatGPT, automation, and responsible AI use.",
+        tags: ["Live Training", "Enterprise", "Leadership"],
+        pay: "$150–$300/hr",
+        meta: "Remote · Contract",
+        link: "#"
+      },
+      {
+        id: 3,
+        featured: false,
+        title: "1-on-1 AI Coach — Entrepreneurs",
+        platform: "Coach.me",
+        category: "1-on-1 Coaching",
+        badgeClass: "badge-coaching",
+        desc: "Coach small business owners and entrepreneurs on integrating AI tools into daily operations. Set your own schedule and rates.",
+        tags: ["Business Owners", "Flexible", "High Demand"],
+        pay: "$75–$200/hr",
+        meta: "Remote · Self-Paced",
+        link: "#"
+      },
+      {
+        id: 4,
+        featured: false,
+        title: "AI YouTube Content Creator",
+        platform: "Independent / Sponsorships",
+        category: "Content Creation",
+        badgeClass: "badge-content",
+        desc: "Produce educational AI content for YouTube. Earn through AdSense, sponsorships, and affiliate partnerships with AI tool companies.",
+        tags: ["YouTube", "Ad Revenue", "Sponsorship"],
+        pay: "Variable",
+        meta: "Remote · Creative",
+        link: "#"
+      },
+      {
+        id: 5,
+        featured: false,
+        title: "AI Bootcamp Lead Instructor",
+        platform: "General Assembly",
+        category: "Bootcamps",
+        badgeClass: "badge-bootcamp",
+        desc: "Lead 12-week AI and machine learning bootcamp cohorts. Provide curriculum instruction, code reviews, and career mentoring.",
+        tags: ["Full-Time", "Cohort-Based", "Career Mentoring"],
+        pay: "$80k–$110k/yr",
+        meta: "Remote or On-Site",
+        link: "#"
+      },
+      {
+        id: 6,
+        featured: false,
+        title: "AI Curriculum Designer",
+        platform: "EdTech Startup",
+        category: "Curriculum Design",
+        badgeClass: "badge-curriculum",
+        desc: "Design end-to-end AI education programs from beginner to advanced. Work with a product team to build course content, assessments, and hands-on projects.",
+        tags: ["Instructional Design", "Full-Time", "EdTech"],
+        pay: "$70k–$95k/yr",
+        meta: "Remote · Full-Time",
+        link: "#"
+      },
+      {
+        id: 7,
+        featured: false,
+        title: "Community AI Educator — Discord",
+        platform: "AI Community (Discord)",
+        category: "Community Teaching",
+        badgeClass: "badge-community",
+        desc: "Host weekly AMAs, run educational threads, and support a 10k+ member AI community. Paid per session and eligible for tip revenue.",
+        tags: ["Community", "AMA", "Async Teaching"],
+        pay: "$30–$75/hr",
+        meta: "Remote · Part-Time",
+        link: "#"
+      },
+      {
+        id: 8,
+        featured: false,
+        title: "AI Research Explainer (Newsletter)",
+        platform: "Substack / The Rundown AI",
+        category: "Research",
+        badgeClass: "badge-research",
+        desc: "Translate cutting-edge AI research papers into clear, accessible newsletter content for a 200k+ subscriber audience.",
+        tags: ["Writing", "Research", "Newsletter"],
+        pay: "$500–$2k/article",
+        meta: "Remote · Freelance",
+        link: "#"
+      },
+      {
+        id: 9,
+        featured: false,
+        title: "ChatGPT for Business — Online Course Creator",
+        platform: "Skillshare",
+        category: "Online Courses",
+        badgeClass: "badge-courses",
+        desc: "Build a practical ChatGPT course focused on real business use cases — drafting, summarizing, customer support, and workflow automation.",
+        tags: ["ChatGPT", "Business", "Skillshare"],
+        pay: "Royalty-Based",
+        meta: "Remote · Async",
+        link: "#"
+      },
+      {
+        id: 10,
+        featured: false,
+        title: "AI Tools Coach — Freelancers & Creators",
+        platform: "Maven",
+        category: "1-on-1 Coaching",
+        badgeClass: "badge-coaching",
+        desc: "Run cohort-based live courses teaching freelancers how to use AI to 10x their output. Maven handles payments and marketing.",
+        tags: ["Freelancers", "Cohort", "Live"],
+        pay: "$3k–$15k/cohort",
+        meta: "Remote · Cohort-Based",
+        link: "#"
+      },
+      {
+        id: 11,
+        featured: false,
+        title: "AI TikTok / Reels Educator",
+        platform: "TikTok Creator Fund",
+        category: "Content Creation",
+        badgeClass: "badge-content",
+        desc: "Grow an audience teaching AI tips, tools, and tutorials in short-form video. Monetize via Creator Fund, brand deals, and link-in-bio products.",
+        tags: ["Short-Form Video", "TikTok", "Brand Deals"],
+        pay: "Variable",
+        meta: "Remote · Creative",
+        link: "#"
+      },
+      {
+        id: 12,
+        featured: false,
+        title: "AI for Healthcare Professionals — Trainer",
+        platform: "Medical EdTech Platform",
+        category: "Corporate Training",
+        badgeClass: "badge-corporate",
+        desc: "Deliver specialized AI training for healthcare professionals. Topics include clinical decision support, AI documentation, and compliance.",
+        tags: ["Healthcare", "Specialized", "Compliance"],
+        pay: "$200–$400/hr",
+        meta: "Remote or On-Site · Contract",
+        link: "#"
+      }
+    ];
+
+    // ─────────────────────────────────────────────────────────────
+    // STATE
+    // ─────────────────────────────────────────────────────────────
+    const PAGE_SIZE = 12;
+    let activeCategory = 'all';
+    let searchQuery = '';
+    let visibleCount = PAGE_SIZE;
+    let currentSort = 'default';
+
+    // ─────────────────────────────────────────────────────────────
+    // HELPERS
+    // ─────────────────────────────────────────────────────────────
+    function getFiltered() {
+      let list = [...OPPORTUNITIES];
+      if (activeCategory !== 'all') list = list.filter(o => o.category === activeCategory);
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        list = list.filter(o =>
+          o.title.toLowerCase().includes(q) ||
+          o.platform.toLowerCase().includes(q) ||
+          o.desc.toLowerCase().includes(q) ||
+          o.tags.some(t => t.toLowerCase().includes(q))
+        );
+      }
+      if (currentSort === 'alpha') list.sort((a,b) => a.title.localeCompare(b.title));
+      else if (currentSort === 'newest') list.sort((a,b) => b.id - a.id);
+      else list.sort((a,b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+      return list;
+    }
+
+    function buildCard(opp) {
+      return `
+        <div class="opp-card fade-up ${opp.featured ? 'featured' : ''}" data-cat="${opp.category}">
+          ${opp.featured ? '<span class="featured-badge">Featured</span>' : ''}
+          <div class="opp-card-top">
+            <span class="opp-category-badge ${opp.badgeClass}">${opp.category}</span>
+            <span class="opp-pay">${opp.pay}</span>
+          </div>
+          <h3 class="opp-title">${opp.title}</h3>
+          <p class="opp-platform">${opp.platform}</p>
+          <p class="opp-desc">${opp.desc}</p>
+          <div class="opp-tags">${opp.tags.map(t => `<span class="opp-tag">${t}</span>`).join('')}</div>
+          <div class="opp-footer">
+            <span class="opp-meta">${opp.meta}</span>
+            <a href="${opp.link}" class="opp-link" target="_blank" rel="noopener noreferrer">
+              View Opportunity
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    function render() {
+      const filtered = getFiltered();
+      const toShow = filtered.slice(0, visibleCount);
+      const grid = document.getElementById('oppsGrid');
+      const emptyState = document.getElementById('emptyState');
+
+      // Clear existing cards (keep emptyState)
+      grid.querySelectorAll('.opp-card').forEach(el => el.remove());
+
+      if (filtered.length === 0) {
+        emptyState.classList.add('visible');
+      } else {
+        emptyState.classList.remove('visible');
+        toShow.forEach(opp => {
+          grid.insertAdjacentHTML('afterbegin', buildCard(opp));
+        });
+        // Reverse so DOM order matches array order
+        const cards = grid.querySelectorAll('.opp-card');
+        const arr = Array.from(cards).reverse();
+        arr.forEach(c => grid.appendChild(c));
+      }
+
+      // Update counts
+      document.getElementById('showingCount').textContent = Math.min(visibleCount, filtered.length);
+      document.getElementById('ofCount').textContent = filtered.length;
+
+      // Load more
+      const loadWrap = document.getElementById('loadMoreWrap');
+      const loadBtn = document.getElementById('loadMoreBtn');
+      const loadCount = document.getElementById('loadMoreCount');
+      const loadFill = document.getElementById('loadMoreFill');
+
+      if (filtered.length > visibleCount) {
+        loadWrap.style.display = 'block';
+        const pct = Math.round((visibleCount / filtered.length) * 100);
+        loadFill.style.width = pct + '%';
+        loadCount.textContent = `Showing ${visibleCount} of ${filtered.length} — ${filtered.length - visibleCount} more to load`;
+      } else {
+        loadWrap.style.display = 'none';
+      }
+
+      // Trigger fade-in for new cards
+      requestAnimationFrame(() => {
+        grid.querySelectorAll('.fade-up').forEach((el, i) => {
+          setTimeout(() => el.classList.add('visible'), i * 60);
+        });
+      });
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // EVENTS
+    // ─────────────────────────────────────────────────────────────
+    document.getElementById('chipContainer').addEventListener('click', e => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeCategory = chip.dataset.cat;
+      visibleCount = PAGE_SIZE;
+      render();
+    });
+
+    document.getElementById('searchInput').addEventListener('input', e => {
+      searchQuery = e.target.value.trim();
+      visibleCount = PAGE_SIZE;
+      render();
+    });
+
+    document.getElementById('sortSelect').addEventListener('change', e => {
+      currentSort = e.target.value;
+      render();
+    });
+
+    document.getElementById('loadMoreBtn').addEventListener('click', () => {
+      visibleCount += PAGE_SIZE;
+      render();
+    });
+
+    // ─────────────────────────────────────────────────────────────
+    // HERO COUNTER ANIMATION
+    // ─────────────────────────────────────────────────────────────
+    function animateCount(el, target, duration) {
+      let start = 0;
+      const step = target / (duration / 16);
+      const tick = () => {
+        start = Math.min(start + step, target);
+        el.textContent = Math.round(start);
+        if (start < target) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // NAV SCROLL
+    // ─────────────────────────────────────────────────────────────
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // MOBILE MENU
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // FADE-UP observer
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ─────────────────────────────────────────────────────────────
+    // INIT
+    // ─────────────────────────────────────────────────────────────
+    render();
+    // Animate hero count after short delay
+    setTimeout(() => {
+      animateCount(document.getElementById('totalCount'), OPPORTUNITIES.length, 800);
+    }, 400);
+
+    // Re-observe new cards after render
+    function observeNewCards() {
+      document.querySelectorAll('.opp-card.fade-up:not(.visible)').forEach(el => observer.observe(el));
+    }
+    // Patch render to also observe
+    const origRender = render;
+
+    // ─────────────────────────────────────────────────────────────
+    // HOW TO ADD MORE OPPORTUNITIES (instructions for later)
+    // ─────────────────────────────────────────────────────────────
+    // Each opportunity object in the OPPORTUNITIES array above has:
+    //   id       — unique number (increment by 1 for each new entry)
+    //   featured — true/false (featured cards appear first and have red accent)
+    //   title    — job/opportunity title
+    //   platform — company or platform name
+    //   category — must match one of the chip labels exactly:
+    //              "Online Courses" | "1-on-1 Coaching" | "Corporate Training"
+    //              "Content Creation" | "Bootcamps" | "Curriculum Design"
+    //              "Community Teaching" | "Research"
+    //   badgeClass — badge color:
+    //              badge-courses | badge-coaching | badge-corporate | badge-content
+    //              badge-bootcamp | badge-curriculum | badge-community | badge-research
+    //   desc     — short description (1-2 sentences)
+    //   tags     — array of short keyword strings e.g. ["Remote","ChatGPT"]
+    //   pay      — pay range string e.g. "$50-$100/hr" or "Revenue Share"
+    //   meta     — location/schedule info e.g. "Remote · Flexible"
+    //   link     — the affiliate/referral URL (replace "#" with real URL)
+  </script>
+</body>
+</html>
