@@ -200,17 +200,6 @@
     .badge-education { background: rgba(132,204,22,0.1); color: #4d7c0f; }
     .badge-ops       { background: rgba(107,114,128,0.1); color: #374151; }
 
-    /* Referral bonus badge */
-    .opp-referral-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 800;
-      color: #059669; background: rgba(16,185,129,0.1);
-      border: 1.5px solid rgba(16,185,129,0.25);
-      padding: 5px 12px; border-radius: 100px; white-space: nowrap;
-    }
-    .opp-referral-badge::before {
-      content: '↗'; font-size: 13px; font-weight: 900;
-    }
 
     .opp-pay {
       font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800;
@@ -384,11 +373,11 @@
   <!-- PAGE HERO -->
   <section class="page-hero">
     <div class="container" style="position:relative;z-index:1;">
-      <div class="eyebrow fade-up">micro1 Referral Platform</div>
-      <h1 class="fade-up" style="transition-delay:0.07s;">Refer Experts. <em>Get Paid.</em></h1>
+      <div class="eyebrow fade-up">Expert Opportunities</div>
+      <h1 class="fade-up" style="transition-delay:0.07s;">Find Your <em>Next Role.</em></h1>
       <p class="fade-up" style="transition-delay:0.14s;">
-        Know a skilled professional? Refer them to micro1 and earn <strong>$25–$3,000 per hire</strong>.
-        Browse open roles across finance, tech, healthcare, and more.
+        Curated contract and freelance roles across finance, tech, healthcare, and more —
+        sourced from top platforms and vetted for quality.
       </p>
       <div class="hero-stats fade-up" style="transition-delay:0.21s;">
         <div class="hero-stat">
@@ -397,8 +386,8 @@
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
-          <div class="hero-stat-value"><em>$3,000</em></div>
-          <div class="hero-stat-label">Max Referral Bonus</div>
+          <div class="hero-stat-value"><em>9</em></div>
+          <div class="hero-stat-label">Categories</div>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
@@ -435,7 +424,7 @@
         <p class="results-count">Showing <strong id="showingCount">0</strong> of <strong id="ofCount">0</strong> opportunities</p>
         <select class="sort-select" id="sortSelect">
           <option value="default">Sort: Featured First</option>
-          <option value="referral-high">Referral: High to Low</option>
+          <option value="referral-high">Pay: High to Low</option>
           <option value="newest">Newest First</option>
           <option value="alpha">A–Z</option>
         </select>
@@ -465,8 +454,8 @@
   <!-- CTA BAND -->
   <section class="cta-band">
     <div class="container">
-      <h2>Automate Your <em>Referral Business</em>?</h2>
-      <p>Let Vessellax build the systems that run behind the scenes — so you can focus on earning.</p>
+      <h2>Ready to Grow Your <em>Expert Business</em>?</h2>
+      <p>Let Vessellax build the automation systems that run behind the scenes — so you can focus on the work that matters.</p>
       <div class="cta-band-actions">
         <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary">Book a Free Strategy Call</a>
         <a href="services.html" class="btn btn-outline-white">Explore Our Services</a>
@@ -656,24 +645,20 @@
     }
 
     function buildCard(opp) {
-      const referralStr = opp.referral >= 1000
-        ? `$${(opp.referral/1000).toFixed(opp.referral % 1000 === 0 ? 0 : 1)}k referral`
-        : `$${opp.referral} referral`;
       return `
         <div class="opp-card fade-up ${opp.featured ? 'featured' : ''}" data-cat="${opp.category}">
-          ${opp.featured ? '<span class="featured-badge">Top Bonus</span>' : ''}
           <div class="opp-card-top">
             <span class="opp-category-badge ${opp.badgeClass}">${opp.category}</span>
-            <span class="opp-referral-badge">${referralStr}</span>
+            <span class="opp-pay">${opp.pay}</span>
           </div>
           <h3 class="opp-title">${opp.title}</h3>
           <p class="opp-platform">${opp.platform}${opp.openings ? ` · ${opp.openings} openings` : ''}</p>
           <p class="opp-desc">${opp.desc}</p>
           <div class="opp-tags">${opp.tags.map(t => `<span class="opp-tag">${t}</span>`).join('')}</div>
           <div class="opp-footer">
-            <span class="opp-meta">${opp.pay !== 'Competitive' ? opp.pay + ' · ' : ''}${opp.meta}</span>
+            <span class="opp-meta">${opp.meta}</span>
             <a href="${opp.link}" class="opp-link" target="_blank" rel="noopener noreferrer">
-              Refer Now
+              View Role
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
