@@ -39,9 +39,9 @@
     .nav-logo { display: flex; align-items: center; text-decoration: none; }
     .nav-logo img { height: 32px; }
     .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
-    .nav-links a { font-size: 14px; font-weight: 500; color: var(--gray-700); text-decoration: none; padding: 8px 14px; border-radius: 8px; transition: color 0.15s, background 0.15s; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--gray-700); text-decoration: none; padding: 8px 14px; border-radius: 8px; white-space: nowrap; transition: color 0.15s, background 0.15s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text-main); background: var(--gray-100); }
-    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
     .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; border-radius: 8px; flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
     .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--navy); border-radius: 2px; }
     .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; bottom: 0; background: var(--white); z-index: 99; padding: 24px; flex-direction: column; gap: 8px; }
@@ -234,7 +234,7 @@
       .seq-step { min-width: 180px; }
       .footer-top { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 768px) {
+    @media (max-width: 1080px) {
       .nav-links, .nav-actions .btn-outline { display: none; }
       .nav-hamburger { display: flex; }
       .offer-section { padding: 64px 0; }

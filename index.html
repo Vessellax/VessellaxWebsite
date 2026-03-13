@@ -109,11 +109,11 @@
     }
     .nav-links a {
       font-size: 14px; font-weight: 500; color: var(--gray-700);
-      text-decoration: none; padding: 8px 14px; border-radius: 8px;
+      text-decoration: none; padding: 8px 14px; border-radius: 8px; white-space: nowrap;
       transition: color 0.15s, background 0.15s;
     }
     .nav-links a:hover { color: var(--text-main); background: var(--gray-100); }
-    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
     .nav-hamburger {
       display: none; background: none; border: none;
       cursor: pointer; padding: 6px; border-radius: 8px;
@@ -567,7 +567,7 @@
       .metrics-grid { grid-template-columns: repeat(2, 1fr); }
       .industries-grid { grid-template-columns: repeat(3, 1fr); }
     }
-    @media (max-width: 768px) {
+    @media (max-width: 1080px) {
       .nav-links, .nav-actions .btn-outline { display: none; }
       .nav-hamburger { display: flex; }
       .services-grid { grid-template-columns: 1fr; }
