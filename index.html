@@ -1176,11 +1176,11 @@
         '    else if (ch < 2.0) col += c1 * p;',
         '    else col += c2 * p;',
         '  }',
-        // Thin colored lines on white
+        // Colored lines on white background
         '  float len = length(col);',
-        '  float alpha = clamp(len * 0.5, 0.0, 0.26);',
+        '  float alpha = clamp(len * 0.9, 0.0, 0.45);',
         '  vec3 waveDir = col / max(len, 0.001);',
-        '  vec3 final = mix(vec3(1.0), waveDir * 0.55, alpha);',
+        '  vec3 final = mix(vec3(1.0), waveDir * 0.58, alpha);',
         '  gl_FragColor = vec4(final, 1.0);',
         '}'
       ].join('\n');
@@ -1225,21 +1225,20 @@
       gl.uniform1f(uWaveCount, 6.0);
       gl.uniform1f(uAmplitude, 0.12);
       gl.uniform1f(uFrequency, 2.0);
-      gl.uniform1f(uBright,    0.003);
+      gl.uniform1f(uBright,    0.004);
       gl.uniform1f(uColorSep,  0.06);
 
       function resize() {
-        var hero = container.parentElement;
-        var w = hero ? hero.offsetWidth  : window.innerWidth;
-        var h = hero ? hero.offsetHeight : window.innerHeight;
-        if (!w) w = window.innerWidth;
-        if (!h) h = window.innerHeight;
+        // Use window dimensions — canvas is stretched via CSS to fill container
+        var w = window.innerWidth  || 1200;
+        var h = window.innerHeight || 700;
         canvas.width = w; canvas.height = h;
         gl.viewport(0, 0, w, h);
         gl.uniform2f(uRes, w, h);
       }
+      // Resize synchronously so canvas has real dimensions before first draw
+      resize();
       window.addEventListener('resize', resize);
-      requestAnimationFrame(function() { resize(); });
 
       var start = performance.now();
       function draw(now) {
