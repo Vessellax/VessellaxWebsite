@@ -108,11 +108,13 @@
       list-style: none;
     }
     .nav-links a {
-      font-size: 14px; font-weight: 500; color: var(--gray-700);
+      font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85);
       text-decoration: none; padding: 8px 14px; border-radius: 8px; white-space: nowrap;
       transition: color 0.15s, background 0.15s;
     }
-    .nav-links a:hover { color: var(--text-main); background: var(--gray-100); }
+    .nav-links a:hover { color: #ffffff; background: rgba(255,255,255,0.1); }
+    nav.scrolled .nav-links a { color: var(--gray-700); }
+    nav.scrolled .nav-links a:hover { color: var(--text-main); background: var(--gray-100); }
     .nav-actions { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
     .nav-hamburger {
       display: none; background: none; border: none;
@@ -171,11 +173,11 @@
       font-family: 'Nunito', sans-serif;
       font-size: clamp(56px, 8vw, 96px); font-weight: 800;
       line-height: 1.05; letter-spacing: -0.04em;
-      color: var(--text-main); margin-bottom: 24px;
+      color: #ffffff; margin-bottom: 24px;
     }
     .hero h1 em { font-style: normal; color: var(--red); }
     .hero-sub {
-      font-size: 18px; color: var(--text-muted); line-height: 1.7;
+      font-size: 18px; color: rgba(255,255,255,0.72); line-height: 1.7;
       margin-bottom: 40px; max-width: 560px; margin-left: auto; margin-right: auto;
     }
     .hero-cta { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
@@ -189,8 +191,8 @@
       margin-left: -10px; object-fit: cover;
     }
     .hero-avatars img:first-child { margin-left: 0; }
-    .hero-proof-text { font-size: 13px; color: var(--text-muted); }
-    .hero-proof-text strong { color: var(--text-main); font-weight: 600; }
+    .hero-proof-text { font-size: 13px; color: rgba(255,255,255,0.65); }
+    .hero-proof-text strong { color: rgba(255,255,255,0.9); font-weight: 600; }
     .hero-visual {
       flex: 1; max-width: 480px;
       display: flex; justify-content: center; align-items: center;
@@ -638,7 +640,7 @@
         </p>
         <div class="hero-cta">
           <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary">Book a Free Consultation</a>
-          <a href="index.html#how" class="btn btn-outline">See How It Works</a>
+          <a href="index.html#how" class="btn btn-outline-white">See How It Works</a>
         </div>
       </div>
     </div>
