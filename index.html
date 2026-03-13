@@ -1122,72 +1122,85 @@
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // ── HERO ELECTRIC WAVES (Canvas 2D, works everywhere) ────────────
+    // ── HERO ELECTRIC WAVES (Canvas 2D — horizontal, shader-faithful) ──
     (function() {
       var container = document.getElementById('hero-shader');
       if (!container) return;
-
       var canvas = document.createElement('canvas');
       container.appendChild(canvas);
       var ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      // Wave definitions — vertical sinusoidal lines, brand colors
-      var LINES = [];
       var RED  = '#E8402A';
       var NAVY = '#2A3A44';
-      for (var i = 0; i < 18; i++) {
-        LINES.push({
-          xNorm:  i / 17,                          // evenly distributed 0→1
-          color:  i % 3 === 1 ? NAVY : RED,
-          freq:   0.006 + Math.random() * 0.006,   // wave frequency along Y
-          amp:    18 + Math.random() * 28,          // px horizontal wobble
-          speed:  0.00045 + Math.random() * 0.0006,// animation speed
-          phase:  Math.random() * Math.PI * 2,
-          width:  0.8 + Math.random() * 0.9,
-          alpha:  0.18 + Math.random() * 0.22,
-        });
-      }
-
-      var dpr = window.devicePixelRatio || 1;
-      var W = 0, H = 0;
+      var dpr  = window.devicePixelRatio || 1;
+      var W = 0, H = 0, SCALE = 1;
 
       function resize() {
         var hero = container.parentElement;
         W = (hero ? hero.offsetWidth  : window.innerWidth)  || window.innerWidth;
         H = (hero ? hero.offsetHeight : window.innerHeight) || window.innerHeight;
-        canvas.width  = W * dpr;
-        canvas.height = H * dpr;
-        canvas.style.width  = W + 'px';
-        canvas.style.height = H + 'px';
+        SCALE = Math.min(W, H);
+        canvas.width  = W * dpr; canvas.height = H * dpr;
+        canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
         ctx.scale(dpr, dpr);
       }
       resize();
-      window.addEventListener('resize', function() {
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        resize();
-      });
+      window.addEventListener('resize', function() { ctx.setTransform(1,0,0,1,0,0); resize(); });
+
+      // Shader params (match original defaults)
+      var WAVE_COUNT  = 5;
+      var AMPLITUDE   = 0.10;   // normalized
+      var FREQUENCY   = 2.0;
+      var BRIGHTNESS  = 0.005;
+      var COLOR_SEP   = 0.10;
+
+      // Replicate shader: wave center y for main wave [idx] at screen x
+      // Derived from shader's pattern() + ruv swap + colorSeparation
+      function waveY(idx, screenX, t) {
+        var xNorm = (screenX - W / 2) / SCALE;
+        var accumulated = 0;
+        for (var j = 0; j < WAVE_COUNT; j++) {
+          var uvY = xNorm + idx * COLOR_SEP; // cuv.y in shader
+          accumulated += Math.sin(t * (1 + j) + uvY * FREQUENCY) * AMPLITUDE;
+        }
+        return H / 2 - accumulated * SCALE;
+      }
+
+      // Glow layers: outer soft → inner crisp
+      var LAYERS = [
+        { w: 28, a: 0.018 },
+        { w: 14, a: 0.04  },
+        { w:  6, a: 0.09  },
+        { w:  2, a: 0.22  },
+        { w:  1, a: 0.50  },
+      ];
 
       var start = performance.now();
       function draw(now) {
-        var t = (now - start);
+        var t = (now - start) / 1000;
         ctx.clearRect(0, 0, W, H);
 
-        for (var i = 0; i < LINES.length; i++) {
-          var ln = LINES[i];
-          var baseX = ln.xNorm * W;
-          var timeOff = t * ln.speed + ln.phase;
+        for (var wi = 0; wi < WAVE_COUNT; wi++) {
+          var color = wi % 2 === 0 ? RED : NAVY;
 
-          ctx.beginPath();
-          ctx.moveTo(baseX + Math.sin(timeOff) * ln.amp, 0);
-          for (var y = 2; y <= H; y += 2) {
-            var x = baseX + Math.sin(y * ln.freq + timeOff) * ln.amp;
-            ctx.lineTo(x, y);
+          // Build path once per wave, reuse for all glow layers
+          var pts = [];
+          for (var x = 0; x <= W; x += 2) {
+            pts.push(x, waveY(wi, x, t));
           }
-          ctx.strokeStyle = ln.color;
-          ctx.lineWidth   = ln.width;
-          ctx.globalAlpha = ln.alpha;
-          ctx.stroke();
+
+          for (var li = 0; li < LAYERS.length; li++) {
+            ctx.beginPath();
+            ctx.moveTo(pts[0], pts[1]);
+            for (var pi = 2; pi < pts.length; pi += 2) {
+              ctx.lineTo(pts[pi], pts[pi + 1]);
+            }
+            ctx.strokeStyle = color;
+            ctx.lineWidth   = LAYERS[li].w;
+            ctx.globalAlpha = LAYERS[li].a;
+            ctx.stroke();
+          }
         }
         ctx.globalAlpha = 1;
         requestAnimationFrame(draw);
