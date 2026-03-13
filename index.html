@@ -140,29 +140,17 @@
     /* ── HERO ── */
     .hero {
       padding: 160px 0 100px;
-      background: #ffffff;
+      background: #0d1117;
       position: relative; overflow: hidden;
     }
     #hero-shader {
       position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
-      overflow: hidden;
     }
-    .hero-line {
-      position: absolute; top: 0; bottom: 0; width: 1px;
-      transform-origin: top center;
-      opacity: 0;
-      animation: lineFade linear infinite;
-    }
-    @keyframes lineFade {
-      0%   { opacity: 0; transform: scaleY(0) translateY(-10%); }
-      15%  { opacity: 1; }
-      85%  { opacity: 1; }
-      100% { opacity: 0; transform: scaleY(1.1) translateY(5%); }
-    }
+    #hero-shader canvas { display: block; width: 100%; height: 100%; }
     .hero::before {
       content: '';
       position: absolute; inset: 0; z-index: 1;
-      background: radial-gradient(ellipse 65% 60% at 50% 50%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.5) 60%, rgba(255,255,255,0) 100%);
+      background: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(13,17,23,0.15) 0%, rgba(13,17,23,0.55) 100%);
       pointer-events: none;
     }
     .hero-inner {
@@ -1140,41 +1128,105 @@
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // ── HERO LINES (pure CSS, no dependencies) ───────────────────
+    // ── HERO CANVAS ANIMATION (Canvas 2D, universal) ──────────────
     (function() {
       var container = document.getElementById('hero-shader');
       if (!container) return;
-      // Brand colors: red, navy, light gray
-      var colors = [
-        'rgba(230,51,41,VAR)',   // brand red
-        'rgba(44,62,80,VAR)',    // brand navy
-        'rgba(230,51,41,VAR)',
-        'rgba(180,190,200,VAR)', // soft gray
-        'rgba(44,62,80,VAR)',
-        'rgba(230,51,41,VAR)',
-        'rgba(180,190,200,VAR)',
-        'rgba(44,62,80,VAR)',
-      ];
-      var count = 28;
-      for (var i = 0; i < count; i++) {
-        var el = document.createElement('div');
-        el.className = 'hero-line';
-        var left = (i / count * 100) + (Math.random() * 2 - 1);
-        var duration = 4 + Math.random() * 6;
-        var delay = -(Math.random() * duration);
-        var w = Math.random() < 0.3 ? '2px' : '1px';
-        var colorTemplate = colors[i % colors.length];
-        var opacity = (0.18 + Math.random() * 0.35).toFixed(2);
-        var color = colorTemplate.replace('VAR', opacity);
-        el.style.cssText = [
-          'left:' + left.toFixed(2) + '%',
-          'width:' + w,
-          'background:linear-gradient(to bottom, transparent 0%, ' + color + ' 20%, ' + color + ' 80%, transparent 100%)',
-          'animation-duration:' + duration.toFixed(2) + 's',
-          'animation-delay:' + delay.toFixed(2) + 's',
-        ].join(';');
-        container.appendChild(el);
+
+      var canvas = document.createElement('canvas');
+      container.appendChild(canvas);
+      var ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width = container.offsetWidth;
+        canvas.height = container.offsetHeight;
       }
+      resize();
+      window.addEventListener('resize', resize);
+
+      // Line definitions
+      var LINE_COUNT = 32;
+      var lines = [];
+
+      function rand(min, max) { return min + Math.random() * (max - min); }
+
+      // Color palettes: red, white-ish, and subtle navy highlight
+      var palettes = [
+        { r: 230, g: 51,  b: 41  },  // brand red
+        { r: 255, g: 80,  b: 65  },  // red-light
+        { r: 200, g: 210, b: 220 },  // cool white
+        { r: 230, g: 51,  b: 41  },  // brand red again (more red weight)
+        { r: 180, g: 195, b: 215 },  // blue-white
+        { r: 230, g: 51,  b: 41  },
+        { r: 220, g: 225, b: 235 },
+        { r: 255, g: 100, b: 90  },  // salmon red
+      ];
+
+      for (var i = 0; i < LINE_COUNT; i++) {
+        var col = palettes[i % palettes.length];
+        lines.push({
+          x: rand(0, 1),              // normalized x position
+          width: rand(0.5, 2.2),
+          speed: rand(0.00008, 0.00022), // normalized per ms
+          phase: rand(0, Math.PI * 2),
+          amplitude: rand(0.008, 0.028), // horizontal drift
+          opacity: rand(0.12, 0.55),
+          r: col.r, g: col.g, b: col.b,
+          glowSize: rand(3, 10),
+        });
+      }
+
+      var startTime = performance.now();
+
+      function draw(now) {
+        var t = now - startTime;
+        var W = canvas.width;
+        var H = canvas.height;
+
+        ctx.clearRect(0, 0, W, H);
+
+        for (var i = 0; i < lines.length; i++) {
+          var ln = lines[i];
+          // Slowly drift x position with a sine wave
+          var x = (ln.x + Math.sin(t * ln.speed * 0.4 + ln.phase) * ln.amplitude) * W;
+          // Pulse opacity
+          var opPulse = ln.opacity * (0.6 + 0.4 * Math.sin(t * ln.speed * 3.5 + ln.phase * 2));
+
+          // Vertical gradient: fade at top and bottom
+          var grad = ctx.createLinearGradient(0, 0, 0, H);
+          grad.addColorStop(0,    'rgba(' + ln.r + ',' + ln.g + ',' + ln.b + ',0)');
+          grad.addColorStop(0.12, 'rgba(' + ln.r + ',' + ln.g + ',' + ln.b + ',' + (opPulse * 0.5).toFixed(3) + ')');
+          grad.addColorStop(0.35, 'rgba(' + ln.r + ',' + ln.g + ',' + ln.b + ',' + opPulse.toFixed(3) + ')');
+          grad.addColorStop(0.65, 'rgba(' + ln.r + ',' + ln.g + ',' + ln.b + ',' + opPulse.toFixed(3) + ')');
+          grad.addColorStop(0.88, 'rgba(' + ln.r + ',' + ln.g + ',' + ln.b + ',' + (opPulse * 0.5).toFixed(3) + ')');
+          grad.addColorStop(1,    'rgba(' + ln.r + ',' + ln.g + ',' + ln.b + ',0)');
+
+          // Glow: wider soft stroke behind
+          ctx.save();
+          ctx.globalCompositeOperation = 'screen';
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = ln.width + ln.glowSize;
+          ctx.globalAlpha = 0.18;
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, H);
+          ctx.stroke();
+
+          // Sharp core line
+          ctx.globalAlpha = 1;
+          ctx.lineWidth = ln.width;
+          ctx.strokeStyle = grad;
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, H);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        requestAnimationFrame(draw);
+      }
+
+      requestAnimationFrame(draw);
     })();
   </script>
   <script
