@@ -500,6 +500,7 @@
         <select class="sort-select" id="sortSelect">
           <option value="default">Sort: Featured First</option>
           <option value="referral-high">Pay: High to Low</option>
+          <option value="referral-low">Pay: Low to High</option>
           <option value="newest">Newest First</option>
           <option value="alpha">A–Z</option>
         </select>
@@ -875,6 +876,7 @@
       if (currentSort === 'alpha') list.sort((a,b) => a.title.localeCompare(b.title));
       else if (currentSort === 'newest') list.sort((a,b) => b.id - a.id);
       else if (currentSort === 'referral-high') list.sort((a,b) => b.referral - a.referral);
+      else if (currentSort === 'referral-low') list.sort((a,b) => a.referral - b.referral);
       else list.sort((a,b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || b.referral - a.referral);
       return list;
     }
