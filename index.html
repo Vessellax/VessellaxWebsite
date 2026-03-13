@@ -1140,10 +1140,16 @@
       var ctx = canvas.getContext('2d');
 
       function resize() {
-        canvas.width = container.offsetWidth;
-        canvas.height = container.offsetHeight;
+        var hero = container.closest('.hero') || container.parentElement;
+        var w = hero ? hero.offsetWidth : window.innerWidth;
+        var h = hero ? hero.offsetHeight : window.innerHeight;
+        if (!w) w = window.innerWidth;
+        if (!h) h = window.innerHeight;
+        canvas.width = w;
+        canvas.height = h;
       }
-      resize();
+      // Wait one frame so layout is complete before measuring
+      requestAnimationFrame(function() { resize(); });
       window.addEventListener('resize', resize);
 
       // Line definitions
@@ -1172,7 +1178,7 @@
           speed: rand(0.00008, 0.00022), // normalized per ms
           phase: rand(0, Math.PI * 2),
           amplitude: rand(0.008, 0.028), // horizontal drift
-          opacity: rand(0.12, 0.55),
+          opacity: rand(0.25, 0.7),
           r: col.r, g: col.g, b: col.b,
           glowSize: rand(3, 10),
         });
@@ -1208,7 +1214,7 @@
           ctx.globalCompositeOperation = 'screen';
           ctx.strokeStyle = grad;
           ctx.lineWidth = ln.width + ln.glowSize;
-          ctx.globalAlpha = 0.18;
+          ctx.globalAlpha = 0.35;
           ctx.beginPath();
           ctx.moveTo(x, 0);
           ctx.lineTo(x, H);
