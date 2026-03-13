@@ -140,18 +140,18 @@
     /* ── HERO ── */
     .hero {
       padding: 160px 0 100px;
-      background: #0a0f14;
+      background: #ffffff;
       position: relative; overflow: hidden;
     }
     #hero-shader {
       position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
-      opacity: 0.85;
+      opacity: 0.55;
     }
     #hero-shader canvas { width: 100% !important; height: 100% !important; display: block; }
     .hero::before {
       content: '';
       position: absolute; inset: 0; z-index: 1;
-      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(10,15,20,0.25) 0%, rgba(10,15,20,0.6) 100%);
+      background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.35) 100%);
       pointer-events: none;
     }
     .hero-inner {
@@ -162,22 +162,21 @@
     .hero-content { max-width: 800px; width: 100%; }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.9);
+      background: rgba(230,51,41,0.08); color: var(--red);
       font-size: 13px; font-weight: 600; padding: 6px 14px;
       border-radius: 100px; margin-bottom: 24px;
-      border: 1px solid rgba(255,255,255,0.2);
-      backdrop-filter: blur(8px);
+      border: 1px solid rgba(230,51,41,0.15);
     }
-    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--red-light); display: block; }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--red); display: block; }
     .hero h1 {
       font-family: 'Nunito', sans-serif;
       font-size: clamp(56px, 8vw, 96px); font-weight: 800;
       line-height: 1.05; letter-spacing: -0.04em;
-      color: #ffffff; margin-bottom: 24px;
+      color: var(--text-main); margin-bottom: 24px;
     }
-    .hero h1 em { font-style: normal; color: var(--red-light); }
+    .hero h1 em { font-style: normal; color: var(--red); }
     .hero-sub {
-      font-size: 18px; color: rgba(255,255,255,0.72); line-height: 1.7;
+      font-size: 18px; color: var(--text-muted); line-height: 1.7;
       margin-bottom: 40px; max-width: 560px; margin-left: auto; margin-right: auto;
     }
     .hero-cta { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
@@ -191,8 +190,8 @@
       margin-left: -10px; object-fit: cover;
     }
     .hero-avatars img:first-child { margin-left: 0; }
-    .hero-proof-text { font-size: 13px; color: rgba(255,255,255,0.55); }
-    .hero-proof-text strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+    .hero-proof-text { font-size: 13px; color: var(--text-muted); }
+    .hero-proof-text strong { color: var(--text-main); font-weight: 600; }
     .hero-visual {
       flex: 1; max-width: 480px;
       display: flex; justify-content: center; align-items: center;
@@ -1142,25 +1141,34 @@
       if (!gl) return;
 
       var VS = 'attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos,0,1); }';
+      // White base, brand red (#e63329) and navy (#2c3e50) lines
       var FS = [
         'precision highp float;',
         'uniform vec2 u_res;',
         'uniform float u_time;',
         'float rnd(float x){ return fract(sin(x)*1e4); }',
-        'float rnd2(vec2 s){ return fract(sin(dot(s,vec2(12.9898,78.233)))*43758.5453); }',
         'void main(){',
         '  vec2 uv=(gl_FragCoord.xy*2.0-u_res)/min(u_res.x,u_res.y);',
         '  vec2 ms=vec2(4.0,2.0), ss=vec2(256.0);',
         '  uv.x=floor(uv.x*ss.x/ms.x)/(ss.x/ms.x);',
         '  uv.y=floor(uv.y*ss.y/ms.y)/(ss.y/ms.y);',
-        '  float t=u_time*0.06+rnd(uv.x)*0.4;',
-        '  vec3 c=vec3(0.0);',
-        '  for(int j=0;j<3;j++){',
-        '    for(int i=0;i<5;i++){',
-        '      c[j]+=0.0008*float(i*i)/abs(fract(t-0.01*float(j)+float(i)*0.01)-length(uv));',
-        '    }',
-        '  }',
-        '  gl_FragColor=vec4(c[2],c[1],c[0],1.0);',
+        '  float t=u_time*0.05+rnd(uv.x)*0.4;',
+        '  float lw=0.0007;',
+        // Brand red glow
+        '  float rg=0.0;',
+        '  for(int i=0;i<5;i++) rg+=lw*float(i*i)/abs(fract(t+float(i)*0.012)-length(uv));',
+        // Brand navy glow
+        '  float ng=0.0;',
+        '  for(int i=0;i<5;i++) ng+=lw*float(i*i)/abs(fract(t-0.018+float(i)*0.012)-length(uv));',
+        // Light gray/white glow
+        '  float wg=0.0;',
+        '  for(int i=0;i<5;i++) wg+=lw*float(i*i)/abs(fract(t-0.036+float(i)*0.012)-length(uv));',
+        // White base minus brand colors = lines appear as colored on white
+        '  vec3 col=vec3(1.0);',
+        '  col -= vec3(0.9,0.2,0.16)*clamp(rg,0.0,0.9);',   // red subtract
+        '  col -= vec3(0.17,0.24,0.31)*clamp(ng,0.0,0.85);', // navy subtract
+        '  col -= vec3(0.82)*clamp(wg*0.4,0.0,0.5);',         // soft gray
+        '  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);',
         '}'
       ].join('\n');
 
