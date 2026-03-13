@@ -1153,7 +1153,8 @@
         '    if (float(i) >= u_waveCount) break;',
         '    float fi = float(i);',
         '    uv.x += sin(u_time * (1.0 + fi) + uv.y * u_frequency) * u_amplitude;',
-        '    intensity += u_brightness / abs(uv.x);',
+        // Exponential falloff = sharp crisp line instead of soft 1/x glow
+        '    intensity += exp(-abs(uv.x) / u_brightness);',
         '  }',
         '  return intensity;',
         '}',
@@ -1178,7 +1179,7 @@
         '  }',
         // Colored lines on white background
         '  float len = length(col);',
-        '  float alpha = clamp(len * 0.9, 0.0, 0.45);',
+        '  float alpha = clamp(len * 1.2, 0.0, 0.5);',
         '  vec3 waveDir = col / max(len, 0.001);',
         '  vec3 final = mix(vec3(1.0), waveDir * 0.58, alpha);',
         '  gl_FragColor = vec4(final, 1.0);',
@@ -1222,11 +1223,11 @@
       var uBright    = gl.getUniformLocation(prog, 'u_brightness');
       var uColorSep  = gl.getUniformLocation(prog, 'u_colorSep');
 
-      gl.uniform1f(uWaveCount, 6.0);
+      gl.uniform1f(uWaveCount, 5.0);
       gl.uniform1f(uAmplitude, 0.12);
       gl.uniform1f(uFrequency, 2.0);
-      gl.uniform1f(uBright,    0.004);
-      gl.uniform1f(uColorSep,  0.06);
+      gl.uniform1f(uBright,    0.003);  // controls line width: smaller = sharper
+      gl.uniform1f(uColorSep,  0.08);
 
       function resize() {
         var dpr = window.devicePixelRatio || 1;
