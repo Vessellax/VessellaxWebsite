@@ -145,13 +145,24 @@
     }
     #hero-shader {
       position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
-      opacity: 0.55;
+      overflow: hidden;
     }
-    #hero-shader canvas { width: 100% !important; height: 100% !important; display: block; }
+    .hero-line {
+      position: absolute; top: 0; bottom: 0; width: 1px;
+      transform-origin: top center;
+      opacity: 0;
+      animation: lineFade linear infinite;
+    }
+    @keyframes lineFade {
+      0%   { opacity: 0; transform: scaleY(0) translateY(-10%); }
+      15%  { opacity: 1; }
+      85%  { opacity: 1; }
+      100% { opacity: 0; transform: scaleY(1.1) translateY(5%); }
+    }
     .hero::before {
       content: '';
       position: absolute; inset: 0; z-index: 1;
-      background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.35) 100%);
+      background: radial-gradient(ellipse 65% 60% at 50% 50%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.5) 60%, rgba(255,255,255,0) 100%);
       pointer-events: none;
     }
     .hero-inner {
@@ -1129,89 +1140,41 @@
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // ── HERO SHADER (raw WebGL, no dependencies) ─────────────────
+    // ── HERO LINES (pure CSS, no dependencies) ───────────────────
     (function() {
       var container = document.getElementById('hero-shader');
       if (!container) return;
-
-      var canvas = document.createElement('canvas');
-      container.appendChild(canvas);
-
-      var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      if (!gl) return;
-
-      var VS = 'attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos,0,1); }';
-      // White base, brand red (#e63329) and navy (#2c3e50) lines
-      var FS = [
-        'precision highp float;',
-        'uniform vec2 u_res;',
-        'uniform float u_time;',
-        'float rnd(float x){ return fract(sin(x)*1e4); }',
-        'void main(){',
-        '  vec2 uv=(gl_FragCoord.xy*2.0-u_res)/min(u_res.x,u_res.y);',
-        '  vec2 ms=vec2(4.0,2.0), ss=vec2(256.0);',
-        '  uv.x=floor(uv.x*ss.x/ms.x)/(ss.x/ms.x);',
-        '  uv.y=floor(uv.y*ss.y/ms.y)/(ss.y/ms.y);',
-        '  float t=u_time*0.05+rnd(uv.x)*0.4;',
-        '  float lw=0.0007;',
-        // Brand red glow
-        '  float rg=0.0;',
-        '  for(int i=0;i<5;i++) rg+=lw*float(i*i)/abs(fract(t+float(i)*0.012)-length(uv));',
-        // Brand navy glow
-        '  float ng=0.0;',
-        '  for(int i=0;i<5;i++) ng+=lw*float(i*i)/abs(fract(t-0.018+float(i)*0.012)-length(uv));',
-        // Light gray/white glow
-        '  float wg=0.0;',
-        '  for(int i=0;i<5;i++) wg+=lw*float(i*i)/abs(fract(t-0.036+float(i)*0.012)-length(uv));',
-        // White base minus brand colors = lines appear as colored on white
-        '  vec3 col=vec3(1.0);',
-        '  col -= vec3(0.9,0.2,0.16)*clamp(rg,0.0,0.9);',   // red subtract
-        '  col -= vec3(0.17,0.24,0.31)*clamp(ng,0.0,0.85);', // navy subtract
-        '  col -= vec3(0.82)*clamp(wg*0.4,0.0,0.5);',         // soft gray
-        '  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);',
-        '}'
-      ].join('\n');
-
-      function compile(type, src) {
-        var s = gl.createShader(type);
-        gl.shaderSource(s, src); gl.compileShader(s); return s;
+      // Brand colors: red, navy, light gray
+      var colors = [
+        'rgba(230,51,41,VAR)',   // brand red
+        'rgba(44,62,80,VAR)',    // brand navy
+        'rgba(230,51,41,VAR)',
+        'rgba(180,190,200,VAR)', // soft gray
+        'rgba(44,62,80,VAR)',
+        'rgba(230,51,41,VAR)',
+        'rgba(180,190,200,VAR)',
+        'rgba(44,62,80,VAR)',
+      ];
+      var count = 28;
+      for (var i = 0; i < count; i++) {
+        var el = document.createElement('div');
+        el.className = 'hero-line';
+        var left = (i / count * 100) + (Math.random() * 2 - 1);
+        var duration = 4 + Math.random() * 6;
+        var delay = -(Math.random() * duration);
+        var w = Math.random() < 0.3 ? '2px' : '1px';
+        var colorTemplate = colors[i % colors.length];
+        var opacity = (0.18 + Math.random() * 0.35).toFixed(2);
+        var color = colorTemplate.replace('VAR', opacity);
+        el.style.cssText = [
+          'left:' + left.toFixed(2) + '%',
+          'width:' + w,
+          'background:linear-gradient(to bottom, transparent 0%, ' + color + ' 20%, ' + color + ' 80%, transparent 100%)',
+          'animation-duration:' + duration.toFixed(2) + 's',
+          'animation-delay:' + delay.toFixed(2) + 's',
+        ].join(';');
+        container.appendChild(el);
       }
-      var prog = gl.createProgram();
-      gl.attachShader(prog, compile(gl.VERTEX_SHADER, VS));
-      gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FS));
-      gl.linkProgram(prog); gl.useProgram(prog);
-
-      var buf = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
-      var aPos = gl.getAttribLocation(prog, 'a_pos');
-      gl.enableVertexAttribArray(aPos);
-      gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
-
-      var uRes = gl.getUniformLocation(prog, 'u_res');
-      var uTime = gl.getUniformLocation(prog, 'u_time');
-      var time = 1.0;
-
-      function resize() {
-        var rect = container.getBoundingClientRect();
-        var dpr = Math.min(window.devicePixelRatio || 1, 2);
-        canvas.width = rect.width * dpr;
-        canvas.height = rect.height * dpr;
-        canvas.style.width = rect.width + 'px';
-        canvas.style.height = rect.height + 'px';
-        gl.viewport(0, 0, canvas.width, canvas.height);
-      }
-      resize();
-      window.addEventListener('resize', resize);
-
-      function draw() {
-        requestAnimationFrame(draw);
-        time += 0.05;
-        gl.uniform2f(uRes, canvas.width, canvas.height);
-        gl.uniform1f(uTime, time);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      }
-      draw();
     })();
   </script>
   <script
