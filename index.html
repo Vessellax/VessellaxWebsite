@@ -1229,12 +1229,16 @@
       gl.uniform1f(uColorSep,  0.06);
 
       function resize() {
-        // Use window dimensions — canvas is stretched via CSS to fill container
+        var dpr = window.devicePixelRatio || 1;
         var w = window.innerWidth  || 1200;
         var h = window.innerHeight || 700;
-        canvas.width = w; canvas.height = h;
-        gl.viewport(0, 0, w, h);
-        gl.uniform2f(uRes, w, h);
+        // Render at full device resolution for crisp output
+        canvas.width  = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width  = w + 'px';
+        canvas.style.height = h + 'px';
+        gl.viewport(0, 0, w * dpr, h * dpr);
+        gl.uniform2f(uRes, w * dpr, h * dpr);
       }
       // Resize synchronously so canvas has real dimensions before first draw
       resize();
