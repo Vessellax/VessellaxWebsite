@@ -1122,133 +1122,74 @@
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // ── HERO ELECTRIC WAVES SHADER (raw WebGL, no dependencies) ────
+    // ── HERO ELECTRIC WAVES (Canvas 2D, works everywhere) ────────────
     (function() {
       var container = document.getElementById('hero-shader');
       if (!container) return;
 
       var canvas = document.createElement('canvas');
       container.appendChild(canvas);
-      var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      if (!gl) return;
+      var ctx = canvas.getContext('2d');
+      if (!ctx) return;
 
-      var vertSrc = [
-        'attribute vec2 a_pos;',
-        'void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }'
-      ].join('\n');
-
-      var fragSrc = [
-        'precision mediump float;',
-        'uniform float u_time;',
-        'uniform vec2 u_res;',
-        'uniform float u_waveCount;',
-        'uniform float u_amplitude;',
-        'uniform float u_frequency;',
-        'uniform float u_brightness;',
-        'uniform float u_colorSep;',
-
-        'float pattern(vec2 uv) {',
-        '  float intensity = 0.0;',
-        '  for (int i = 0; i < 20; i++) {',
-        '    if (float(i) >= u_waveCount) break;',
-        '    float fi = float(i);',
-        '    uv.x += sin(u_time * (1.0 + fi) + uv.y * u_frequency) * u_amplitude;',
-        // Exponential falloff = sharp crisp line instead of soft 1/x glow
-        '    intensity += exp(-abs(uv.x) / u_brightness);',
-        '  }',
-        '  return intensity;',
-        '}',
-
-        'void main() {',
-        '  vec2 uv = (gl_FragCoord.xy - 0.5 * u_res) / min(u_res.x, u_res.y);',
-        '  vec2 ruv = vec2(uv.y, uv.x);',
-        // brand red, navy, red-light
-        '  vec3 c0 = vec3(0.910, 0.251, 0.165);',  // #E8402A
-        '  vec3 c1 = vec3(0.165, 0.227, 0.267);',  // #2A3A44
-        '  vec3 c2 = vec3(0.910, 0.251, 0.165);',  // #E8402A (more red weight)
-        '  vec3 col = vec3(0.0);',
-        '  for (int i = 0; i < 20; i++) {',
-        '    if (float(i) >= u_waveCount) break;',
-        '    float fi = float(i);',
-        '    vec2 cuv = ruv + vec2(0.0, fi * u_colorSep);',
-        '    float p = pattern(cuv);',
-        '    float ch = mod(fi, 3.0);',
-        '    if (ch < 1.0) col += c0 * p;',
-        '    else if (ch < 2.0) col += c1 * p;',
-        '    else col += c2 * p;',
-        '  }',
-        // Colored lines on white background
-        '  float len = length(col);',
-        '  float alpha = clamp(len * 1.2, 0.0, 0.5);',
-        '  vec3 waveDir = col / max(len, 0.001);',
-        '  vec3 final = mix(vec3(1.0), waveDir * 0.58, alpha);',
-        '  gl_FragColor = vec4(final, 1.0);',
-        '}'
-      ].join('\n');
-
-      function makeShader(type, src) {
-        var s = gl.createShader(type);
-        gl.shaderSource(s, src);
-        gl.compileShader(s);
-        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
-          console.warn('Shader error:', gl.getShaderInfoLog(s)); gl.deleteShader(s); return null;
-        }
-        return s;
+      // Wave definitions — vertical sinusoidal lines, brand colors
+      var LINES = [];
+      var RED  = '#E8402A';
+      var NAVY = '#2A3A44';
+      for (var i = 0; i < 18; i++) {
+        LINES.push({
+          xNorm:  i / 17,                          // evenly distributed 0→1
+          color:  i % 3 === 1 ? NAVY : RED,
+          freq:   0.006 + Math.random() * 0.006,   // wave frequency along Y
+          amp:    18 + Math.random() * 28,          // px horizontal wobble
+          speed:  0.00045 + Math.random() * 0.0006,// animation speed
+          phase:  Math.random() * Math.PI * 2,
+          width:  0.8 + Math.random() * 0.9,
+          alpha:  0.18 + Math.random() * 0.22,
+        });
       }
 
-      var vert = makeShader(gl.VERTEX_SHADER, vertSrc);
-      var frag = makeShader(gl.FRAGMENT_SHADER, fragSrc);
-      if (!vert || !frag) return;
-
-      var prog = gl.createProgram();
-      gl.attachShader(prog, vert); gl.attachShader(prog, frag);
-      gl.linkProgram(prog);
-      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-        console.warn('Program link error:', gl.getProgramInfoLog(prog)); return;
-      }
-      gl.useProgram(prog);
-
-      var buf = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
-      var aPos = gl.getAttribLocation(prog, 'a_pos');
-      gl.enableVertexAttribArray(aPos);
-      gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
-
-      var uTime      = gl.getUniformLocation(prog, 'u_time');
-      var uRes       = gl.getUniformLocation(prog, 'u_res');
-      var uWaveCount = gl.getUniformLocation(prog, 'u_waveCount');
-      var uAmplitude = gl.getUniformLocation(prog, 'u_amplitude');
-      var uFrequency = gl.getUniformLocation(prog, 'u_frequency');
-      var uBright    = gl.getUniformLocation(prog, 'u_brightness');
-      var uColorSep  = gl.getUniformLocation(prog, 'u_colorSep');
-
-      gl.uniform1f(uWaveCount, 5.0);
-      gl.uniform1f(uAmplitude, 0.12);
-      gl.uniform1f(uFrequency, 2.0);
-      gl.uniform1f(uBright,    0.003);  // controls line width: smaller = sharper
-      gl.uniform1f(uColorSep,  0.08);
+      var dpr = window.devicePixelRatio || 1;
+      var W = 0, H = 0;
 
       function resize() {
-        var dpr = window.devicePixelRatio || 1;
-        var w = window.innerWidth  || 1200;
-        var h = window.innerHeight || 700;
-        // Render at full device resolution for crisp output
-        canvas.width  = w * dpr;
-        canvas.height = h * dpr;
-        canvas.style.width  = w + 'px';
-        canvas.style.height = h + 'px';
-        gl.viewport(0, 0, w * dpr, h * dpr);
-        gl.uniform2f(uRes, w * dpr, h * dpr);
+        var hero = container.parentElement;
+        W = (hero ? hero.offsetWidth  : window.innerWidth)  || window.innerWidth;
+        H = (hero ? hero.offsetHeight : window.innerHeight) || window.innerHeight;
+        canvas.width  = W * dpr;
+        canvas.height = H * dpr;
+        canvas.style.width  = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.scale(dpr, dpr);
       }
-      // Resize synchronously so canvas has real dimensions before first draw
       resize();
-      window.addEventListener('resize', resize);
+      window.addEventListener('resize', function() {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        resize();
+      });
 
       var start = performance.now();
       function draw(now) {
-        gl.uniform1f(uTime, (now - start) / 1000);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        var t = (now - start);
+        ctx.clearRect(0, 0, W, H);
+
+        for (var i = 0; i < LINES.length; i++) {
+          var ln = LINES[i];
+          var baseX = ln.xNorm * W;
+          var timeOff = t * ln.speed + ln.phase;
+
+          ctx.beginPath();
+          ctx.moveTo(baseX + Math.sin(timeOff) * ln.amp, 0);
+          for (var y = 2; y <= H; y += 2) {
+            var x = baseX + Math.sin(y * ln.freq + timeOff) * ln.amp;
+            ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = ln.color;
+          ctx.lineWidth   = ln.width;
+          ctx.globalAlpha = ln.alpha;
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
         requestAnimationFrame(draw);
       }
       requestAnimationFrame(draw);
