@@ -73,6 +73,8 @@
     .nav-logo img { height: 42px; }
     .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
     .nav-links a { font-size: 16px; font-weight: 500; color: var(--gray-700); text-decoration: none; padding: 9px 17px; border-radius: 8px; white-space: nowrap; letter-spacing: 0.01em; transition: color 0.15s, background 0.15s; }
+    .nav-links a.nav-opp { color: #1A3D2B !important; font-weight: 700; }
+    .nav-links a.nav-opp:hover { color: #1A3D2B !important; background: rgba(26,61,43,0.07) !important; }
     .nav-links a:hover, .nav-links a.active { color: var(--text-main); background: var(--gray-100); }
     .nav-actions { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
     .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; border-radius: 8px; flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
@@ -440,10 +442,10 @@
         <li><a href="services.html">Services</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li><a href="opportunities.html" class="nav-opp active">Opportunities</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="opportunities.html" class="btn btn-opp" style="font-size:16px;padding:11px 24px;">Opportunities</a>
-        <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:16px;padding:11px 24px;">Book a Free Call</a>
+                <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:16px;padding:11px 24px;">Book a Free Call</a>
         <button class="nav-hamburger" id="hamburgerBtn" aria-label="Open menu">
           <span></span><span></span><span></span>
         </button>
