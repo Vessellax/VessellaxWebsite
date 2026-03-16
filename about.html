@@ -164,8 +164,9 @@
     }
     .btn-opp:hover { background: #122A1E; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,61,43,0.35), 0 8px 32px rgba(26,61,43,0.2); }    .nav-opp-logo:hover img { opacity: 0.8; }
     .nav-back-logo { display: flex; align-items: center; }    .nav-links a.btn-primary, .nav-links a.nav-cta { color: #ffffff !important; font-size: 15px !important; padding: 9px 20px !important; }
-    .nav-opp-logo { font-size: 16px; font-weight: 600; color: #1A3D2B !important; text-decoration: none; padding: 9px 17px; border-radius: 8px; border: 2px solid #1A3D2B; letter-spacing: 0.01em; white-space: nowrap; transition: color 0.15s, background 0.15s, border-color 0.15s; }
-    .nav-opp-logo:hover { background: rgba(26,61,43,0.06); color: #122A1E !important; border-color: #122A1E; }
+    .nav-opp-logo { border: 2px solid rgba(26,61,43,0.3); border-radius: 12px; padding: 5px 12px; display: flex; align-items: center; text-decoration: none; transition: background 0.2s, border-color 0.2s; }
+    .nav-opp-logo:hover { background: rgba(26,61,43,0.06); border-color: rgba(26,61,43,0.6); }
+    .nav-opp-logo img { height: 44px; display: block; }
       </style>
 
 <!-- cache: 3 -->
@@ -182,7 +183,9 @@
         <li><a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary nav-cta">Book a Free Call</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="opportunities.html" class="nav-opp-logo">Opportunities</a>
+        <a href="opportunities.html" class="nav-opp-logo">
+          <img src="assets/opportunities-logo.png" alt="Opportunities by Vessellax" />
+        </a>
         <button class="nav-hamburger" id="hamburgerBtn"><span></span><span></span><span></span></button>
       </div>
     </div>
