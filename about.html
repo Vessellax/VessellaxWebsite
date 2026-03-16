@@ -172,7 +172,7 @@
 </head>
 <body>
 
-        <nav id="mainNav">
+        <nav id="mainNav" class="scrolled">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo"><img src="assets/logo.png" alt="Vessellax" /></a>
       <ul class="nav-links">
@@ -336,7 +336,7 @@
 
   <script>
     const nav = document.getElementById('mainNav');
-    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 20); }, { passive: true });
+    window.addEventListener('scroll', () => { nav.classList.add('scrolled'); }, { passive: true });
     const hamburger = document.getElementById('hamburgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
