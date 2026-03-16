@@ -160,11 +160,17 @@
       .footer-top { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 1080px) {
-      .nav-links, .nav-actions .btn-outline { display: none; }
+      .nav-links, .nav-actions .btn-outline, .nav-actions .btn-opp { display: none; }
       .nav-hamburger { display: flex; }
       .contact-form { padding: 32px 24px; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
     }
+
+    .btn-opp {
+      background: #1A3D2B; color: #ffffff; padding: 13px 26px; border-radius: 100px;
+      box-shadow: 0 2px 8px rgba(26,61,43,0.25), 0 4px 20px rgba(26,61,43,0.15);
+    }
+    .btn-opp:hover { background: #122A1E; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,61,43,0.35), 0 8px 32px rgba(26,61,43,0.2); }
   </style>
 </head>
 <body>
@@ -175,7 +181,6 @@
       <ul class="nav-links">
         <li><a href="services.html">Services</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="opportunities.html">Opportunities</a></li>
         <li><a href="contact.html" class="active">Contact</a></li>
       </ul>
       <div class="nav-actions">

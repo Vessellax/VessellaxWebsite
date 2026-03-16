@@ -97,11 +97,17 @@
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
     @media (max-width: 1080px) {
-      .nav-links, .nav-actions .btn-outline { display: none; }
+      .nav-links, .nav-actions .btn-outline, .nav-actions .btn-opp { display: none; }
       .nav-hamburger { display: flex; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
     }
+
+    .btn-opp {
+      background: #1A3D2B; color: #ffffff; padding: 13px 26px; border-radius: 100px;
+      box-shadow: 0 2px 8px rgba(26,61,43,0.25), 0 4px 20px rgba(26,61,43,0.15);
+    }
+    .btn-opp:hover { background: #122A1E; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,61,43,0.35), 0 8px 32px rgba(26,61,43,0.2); }
   </style>
 </head>
 <body>
@@ -118,7 +124,7 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="about.html" class="btn btn-outline" style="font-size:16px;padding:11px 22px;">Learn More</a>
+        <a href="opportunities.html" class="btn btn-opp" style="font-size:16px;padding:11px 24px;">Opportunities</a>
         <a href="https://calendly.com/kevin-vessellax/" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:16px;padding:11px 24px;">Book a Free Call</a>
         <button class="nav-hamburger" id="hamburgerBtn" aria-label="Open menu">
           <span></span><span></span><span></span>
